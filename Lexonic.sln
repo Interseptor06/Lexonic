@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexonicDataPipelineAndDBCom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexonicWebApplication", "LexonicWebApplication\LexonicWebApplication.csproj", "{DACD8059-ADCD-4F02-AE04-AC62CA8DAAB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLModels", "MLModels\MLModels.csproj", "{C09805A4-8491-4AC0-8CE9-53329FA3BF42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{DACD8059-ADCD-4F02-AE04-AC62CA8DAAB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DACD8059-ADCD-4F02-AE04-AC62CA8DAAB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DACD8059-ADCD-4F02-AE04-AC62CA8DAAB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C09805A4-8491-4AC0-8CE9-53329FA3BF42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C09805A4-8491-4AC0-8CE9-53329FA3BF42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C09805A4-8491-4AC0-8CE9-53329FA3BF42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C09805A4-8491-4AC0-8CE9-53329FA3BF42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
