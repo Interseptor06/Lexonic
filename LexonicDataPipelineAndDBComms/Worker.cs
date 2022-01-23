@@ -31,10 +31,12 @@ namespace LexonicDataPipelineAndDBComms
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {Time}", DateTimeOffset.UtcNow);
-                await HistoricalNewsData.FirstNewsDataRequest(stoppingToken, _logger);
-                //await HistoricStockData.UpdateStockData(stoppingToken, _logger);
+                //await HistoricalNewsData.UpdateNewsData(stoppingToken, _logger);
+                var ciganin = await HistoricalNewsData.UpdateNewsData(stoppingToken, _logger, 2);
+                var novciganin = HistoricalNewsData.ParseNewsRequest(ciganin, _logger);
+                HistoricalNewsData.PrettyPrint(5 ,novciganin);
                 //await HistoricStockData.WriteToDb("Test");
-                //await Task.Delay(1000, stoppingToken);
+                await Task.Delay(7500, stoppingToken);
             }
         }
     }

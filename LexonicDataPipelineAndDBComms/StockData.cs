@@ -27,6 +27,10 @@ namespace LexonicDataPipelineAndDBComms
 
     public static class HistoricStockData
     {
+        // Had to create new method for the same thing as in NewsData.cs because the key is different
+        
+
+        // TODO: Add commentary before I forget how the fuck this method works
         public static Dictionary<DateOnly, List<StockData>> ProcessStockData(Dictionary<DateOnly, string> responseBody, ILogger logger)
         {
             Dictionary<DateOnly, List<StockData>> globalHistoricData = new();
@@ -105,6 +109,7 @@ namespace LexonicDataPipelineAndDBComms
             var Date = DateOnly.FromDateTime(DateTime.Now);
             Dictionary<DateOnly, string> historicalData = new();
             string responseBody = String.Empty;
+            BasicParse stockParse = new();
             HttpClient httpClient = new();
             while (historicalData.Count <= 253)
             {
@@ -115,9 +120,11 @@ namespace LexonicDataPipelineAndDBComms
                     responseBody = await httpClient.GetStringAsync(
                         $"https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/{dateString}?adjusted=true&apiKey=wfMvDI3LyIYWRUj0f7_kpLG1V_pmuy_w", stoppingToken);
                     // Since polygon.io doesn't give a mistake if you ask about data on a (weekend, holiday, future date) this statement makes sure that we get the right amount of data
-                    if (responseBody.Length < 250)
+                    if (stockParse.BasicStockParseJson(responseBody) == 0)
                     {
                         logger.LogInformation("Non Data Response {Response}",responseBody);
+                        logger.LogInformation("Status : {Status}", stockParse.RequestStatus);
+                        if(stockParse.RequestError != null){ logger.LogInformation("Error : {Error}", stockParse.RequestError); }
                         continue;
                     }
                     // Put in else statement for clarity
@@ -143,6 +150,7 @@ namespace LexonicDataPipelineAndDBComms
         {
             Dictionary<DateOnly, string> historicalData = new();
             string responseBody = String.Empty;
+            BasicParse stockParse = new();
             HttpClient httpClient = new();
             
             // This section handles Date formatting
@@ -155,9 +163,11 @@ namespace LexonicDataPipelineAndDBComms
                 responseBody = await httpClient.GetStringAsync(
                     $"https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/{dateString}?adjusted=true&apiKey=wfMvDI3LyIYWRUj0f7_kpLG1V_pmuy_w", stoppingToken);
                 // Since polygon.io doesn't give a mistake if you ask about data on a (weekend, holiday, future date) this statement makes sure that we get the right amount of data
-                if (responseBody.Length < 250)
+                if (stockParse.BasicStockParseJson(responseBody) == 0)
                 {
                     logger.LogInformation("Non Data Response {Response}",responseBody);
+                    logger.LogInformation("Status : {Status}", stockParse.RequestStatus);
+                    if(stockParse.RequestError != null){ logger.LogInformation("Error : {Error}", stockParse.RequestError); }
                 }
                 else
                 {

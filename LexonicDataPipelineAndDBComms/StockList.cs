@@ -7,8 +7,8 @@ namespace LexonicDataPipelineAndDBComms
     {
         public static List<string> SList = new()
         {
-            "MMM", "AOS", "ABT", "ABBV", "ABMD", "ACN", "ATVI", "ADBE", "AAP", "AES", "AFL", "A",
-            "AIG", "APD", "AKAM", "ALK", "ALB", "ARE", "ALGN", "ALLE", "LNT", "ALL", "GOOGL",
+            "GOOGL", "MMM", "AOS", "ABT", "ABBV", "ABMD", "ACN", "ATVI", "ADBE", "AAP", "AES", "AFL", "A",
+            "AIG", "APD", "AKAM", "ALK", "ALB", "ARE", "ALGN", "ALLE", "LNT", "ALL",
             "GOOG", "MO", "AMZN", "AMCR", "AMD", "AEE", "AAL", "AEP", "AXP", "AMT" ,"AWK", "AMP",
             "ABC", "AME", "AMGN", "APH", "ADI", "ANSS", "ANTM", "AON", "APA" ,"AAPL", "AMAT",
             "APTV", "ADM", "ANET", "AJG" ,"AIZ", "T" ,"ATO", "ADSK", "ADP", "AZO", "AVB", "AVY",

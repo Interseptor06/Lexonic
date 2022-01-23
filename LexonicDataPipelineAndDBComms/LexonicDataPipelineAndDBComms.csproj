@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Keras.NET" Version="3.8.5" />
         <PackageReference Include="Microsoft.Data.SqlClient" Version="4.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
         <PackageReference Include="Microsoft.ML" Version="1.7.0" />
