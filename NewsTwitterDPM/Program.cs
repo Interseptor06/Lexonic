@@ -1,6 +1,6 @@
-using LexonicDataPipelineAndDBComms;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using NewsTwitterDPM;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services => { services.AddHostedService<Worker>(); })

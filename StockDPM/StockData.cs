@@ -119,25 +119,25 @@ namespace LexonicDataPipelineAndDBComms
                 {
                     responseBody = await httpClient.GetStringAsync(
                         $"https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/{dateString}?adjusted=true&apiKey=wfMvDI3LyIYWRUj0f7_kpLG1V_pmuy_w", stoppingToken);
+                    Console.WriteLine($"https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/{dateString}?adjusted=true&apiKey=wfMvDI3LyIYWRUj0f7_kpLG1V_pmuy_w");
                     // Since polygon.io doesn't give a mistake if you ask about data on a (weekend, holiday, future date) this statement makes sure that we get the right amount of data
                     if (stockParse.BasicStockParseJson(responseBody) == 0)
                     {
                         logger.LogInformation("Non Data Response {Response}",responseBody);
                         logger.LogInformation("Status : {Status}", stockParse.RequestStatus);
                         if(stockParse.RequestError != null){ logger.LogInformation("Error : {Error}", stockParse.RequestError); }
+                        await Task.Delay(12000, stoppingToken);
+                        Date = Date.AddDays(-1);
                         continue;
                     }
                     // Put in else statement for clarity
-                    else
-                    {
-                        // Continue statement takes care of everything else so no need of else statement
-                        logger.LogInformation("Successfully received info at: {Time}", DateTimeOffset.UtcNow);
-                        historicalData.Add(Date, responseBody);
-                    }
+                    // Continue statement takes care of everything else so no need of else statement
+                    logger.LogInformation("Successfully received info at: {Time}", DateTimeOffset.UtcNow);
+                    historicalData.Add(Date, responseBody);
                     Date = Date.AddDays(-1);
                     await Task.Delay(12000, stoppingToken);
                 }
-                catch (HttpRequestException e)
+                catch (Exception e)
                 {
                     logger.LogInformation("Exception thrown : {Exception}", e.ToString());
                     await Task.Delay(12000, stoppingToken);
@@ -174,6 +174,7 @@ namespace LexonicDataPipelineAndDBComms
                     logger.LogInformation("Successfully received info at: {Time}", DateTimeOffset.UtcNow); 
                     historicalData.Add(Date,responseBody);
                 }
+                await Task.Delay(12000, stoppingToken);
             }
             catch (HttpRequestException e)
             {

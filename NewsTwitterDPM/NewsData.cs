@@ -29,38 +29,40 @@ namespace LexonicDataPipelineAndDBComms
         }
     }
 
-    public class BasicParse
-    {
-        public string? RequestError;
-        public string RequestStatus = String.Empty;
-
-        public Int32 BasicNewsParseJson(string responseBody)
-        {
-            Dictionary<string, JsonElement> jsonData =
-                JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(responseBody) ??
-                throw new InvalidOperationException();
-            // Handles case in which there is no error and assigns null to RequestError which is nullable
-            RequestError = jsonData["status"].ToString() == "ERROR" ? jsonData["error"].ToString() : null;
-            RequestStatus = jsonData["status"].ToString();
-
-            return jsonData["status"].ToString() == "OK" ? 1 : 0;
-        }
-
-        public Int32 BasicStockParseJson(string responseBody)
-        {
-            Dictionary<string, JsonElement> jsonData =
-                JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(responseBody) ??
-                throw new InvalidOperationException();
-            // Instead of "count" it's "queryCount"
-            return jsonData["queryCount"].GetInt32();
-        }
-    }
-
+    
     // Historical is only 30 days
     // The model only takes in the latest 14 days
     public static class HistoricalNewsData
     {
-        public static string? RequestError;
+        //public static string? RequestError;
+        public static string FormatDate(DateOnly _dateOnly)
+        {
+            string dateString = String.Empty;
+            if (_dateOnly.ToString().Split("/")[0].Length == 1)
+            {
+                if (_dateOnly.ToString().Split("/")[1].Length == 1)
+                {
+                    dateString = _dateOnly.ToString().Split("/")[2] + "-0" + _dateOnly.ToString().Split("/")[0] + "-0" + _dateOnly.ToString().Split("/")[1];
+                }
+                else
+                {
+                    dateString = _dateOnly.ToString().Split("/")[2] + "-0" + _dateOnly.ToString().Split("/")[0] + "-" + _dateOnly.ToString().Split("/")[1];
+                }
+            }
+            else
+            {
+                if (_dateOnly.ToString().Split("/")[1].Length == 1)
+                {
+                    dateString = _dateOnly.ToString().Split("/")[2] + "-" + _dateOnly.ToString().Split("/")[0] + "-0" + _dateOnly.ToString().Split("/")[1];
+
+                }
+                else
+                {
+                    dateString = _dateOnly.ToString().Split("/")[2] + "-" + _dateOnly.ToString().Split("/")[0] + "-" + _dateOnly.ToString().Split("/")[1];
+                }
+            }
+            return dateString;
+        }
 
         /// <summary>
         /// Lot of problems here
@@ -85,7 +87,7 @@ namespace LexonicDataPipelineAndDBComms
             foreach (var stock in StockList.SList)
             {
                 // Formats date to proper format
-                string dateString = HistoricStockData.FormatDate(Date.AddDays(-DateTime.UtcNow.Day));
+                string dateString = FormatDate(Date.AddDays(-DateTime.UtcNow.Day));
                 try
                 {
                     // Takes in Data for the last N days to the first day of the month
@@ -104,7 +106,7 @@ namespace LexonicDataPipelineAndDBComms
                         }
 
                         Date = Date.AddDays(-1);
-                        await Task.Delay(1000, stoppingToken);
+                        await Task.Delay(12000, stoppingToken);
                         // If code goes in this block the continue statement will go to the next iteration
                         continue;
                     }
@@ -115,7 +117,7 @@ namespace LexonicDataPipelineAndDBComms
                         logger.LogInformation("Successfully received info at: {Time}", DateTimeOffset.UtcNow);
                         historicalData.Add(stock, responseBody);
                         Date = Date.AddDays(-1);
-                        await Task.Delay(1000, stoppingToken);
+                        await Task.Delay(12000, stoppingToken);
                     }
                 }
                 catch (HttpRequestException e)
@@ -124,7 +126,7 @@ namespace LexonicDataPipelineAndDBComms
                     await Task.Delay(12000, stoppingToken);
                 }
             }
-
+            Console.WriteLine("Bruh");
             return historicalData;
         }
 
@@ -143,7 +145,7 @@ namespace LexonicDataPipelineAndDBComms
             foreach (var stock in StockList.SList)
             {
                 // Formats date to proper format
-                string dateString = HistoricStockData.FormatDate(Date);
+                string dateString = FormatDate(Date);
                 try
                 {
                     // Takes in Data for the last N days to the first day of the month
@@ -162,7 +164,7 @@ namespace LexonicDataPipelineAndDBComms
                             logger.LogInformation("Error : {Error}", newsParse.RequestError);
                         }
 
-                        await Task.Delay(1000, stoppingToken);
+                        await Task.Delay(12000, stoppingToken);
                         // If code goes in this block the continue statement will go to the next iteration
                         continue;
                     }
@@ -170,7 +172,7 @@ namespace LexonicDataPipelineAndDBComms
                     Console.WriteLine(responseBody);
                     logger.LogInformation("Successfully received info at: {Time}", DateTimeOffset.UtcNow);
                     historicalData.Add(stock, responseBody);
-                    await Task.Delay(1000, stoppingToken);
+                    await Task.Delay(12000, stoppingToken);
                 }
                 catch (HttpRequestException e)
                 {
@@ -178,7 +180,6 @@ namespace LexonicDataPipelineAndDBComms
                     await Task.Delay(12000, stoppingToken);
                 }
                 // TODO: Remove before commit
-                break;
             }
 
             // Return dictionary of size 1 which is basically a KeyValuePair, but since c# doesn't implicitly

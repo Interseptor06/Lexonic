@@ -4,14 +4,11 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>dotnet-LexonicDataPipelineAndDBComms-8B103774-613B-430E-9638-9F6E07BECACD</UserSecretsId>
+        <UserSecretsId>dotnet-NewsTwitterDPM-5C551B33-40D2-4C9E-B94D-40D72C96BC8A</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Keras.NET" Version="3.8.5" />
-        <PackageReference Include="Microsoft.Data.SqlClient" Version="4.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
-        <PackageReference Include="Microsoft.ML" Version="1.7.0" />
     </ItemGroup>
 </Project>

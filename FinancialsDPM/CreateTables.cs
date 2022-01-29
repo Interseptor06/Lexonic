@@ -7,8 +7,12 @@ namespace LexonicDataPipelineAndDBComms
     }
     public class CreateTables
     {
+        /* News Table Architecture
+         * 
+         */
         public static Status CreateNewsTable()
         {
+            
             return Status.Failure;
         }
     }
