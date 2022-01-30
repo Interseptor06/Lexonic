@@ -8,5 +8,6 @@ namespace LexonicDataPipelineAndDBComms
         {
             Console.WriteLine("Ciganin");
         }    
+        
     }
 }
