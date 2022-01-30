@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,6 +27,12 @@ namespace LexonicDataPipelineAndDBComms
             Article_url = articleUrl ?? throw new ArgumentNullException(nameof(articleUrl));
             Date = date;
             Time = time;
+        }
+
+        public string ReturnText(NewsData _newsData)
+        {
+            // Although _newsData.Description may be null it is concatenated with a string the result of which is a string
+            return _newsData.Title + _newsData.Description;
         }
     }
 
