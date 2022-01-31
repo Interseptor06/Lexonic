@@ -11,7 +11,7 @@ namespace LexonicDataPipelineAndDBComms
         public static void gitBranchTest()
         {
             Console.WriteLine("Chewbanin");
-        }    
-        
+            Console.WriteLine("Nov Chewbanin");
+        }
     }
 }
