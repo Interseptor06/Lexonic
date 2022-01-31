@@ -10,7 +10,7 @@ namespace LexonicDataPipelineAndDBComms
     {
         public static void gitBranchTest()
         {
-            Console.WriteLine("Ciganin");
+            Console.WriteLine("Chewbanin");
         }    
         
     }
