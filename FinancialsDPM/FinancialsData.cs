@@ -1,6 +1,6 @@
 using System;
 
-namespace LexonicDataPipelineAndDBComms
+namespace FinancialsDPM
 {
     public class BalanceSheet
     {

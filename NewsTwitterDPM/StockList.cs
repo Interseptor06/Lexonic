@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 
-namespace LexonicDataPipelineAndDBComms
+namespace NewsTwitterDPM
 {
     public static class StockList
     {

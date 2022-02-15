@@ -1,4 +1,4 @@
-namespace LexonicDataPipelineAndDBComms
+namespace NewsTwitterDPM
 {
     public enum Status
     {

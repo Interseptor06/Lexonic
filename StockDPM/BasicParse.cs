@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
-namespace LexonicDataPipelineAndDBComms
+namespace StockDPM
 {
     public class BasicParse
     {

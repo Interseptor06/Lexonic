@@ -1,4 +1,4 @@
-namespace LexonicDataPipelineAndDBComms
+namespace StockDPM
 {
     public enum Status
     {
