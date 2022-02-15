@@ -12,13 +12,8 @@ namespace LexonicDataPipelineAndDBComms
         {
             Console.WriteLine("Chewbanin");
             Console.WriteLine("Nov Chewbanin");
-<<<<<<< HEAD
-        }
-=======
             Console.WriteLine("br2 Chewbanin");
 
-        }    
-        
->>>>>>> br2
+        }
     }
 }
