@@ -13,26 +13,19 @@ namespace NewsTwitterDPM
     {
         public string Ticker { get; set; }
         public string Title { get; set; }
-        public string? Description { get; set; }
         public string Article_url { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
 
-        public NewsData(string ticker, string title, string? description, string articleUrl, string date, string time)
+        public NewsData(string ticker, string title, string articleUrl, string date, string time)
         {
             Ticker = ticker ?? throw new ArgumentNullException(nameof(ticker));
             Title = title ?? throw new ArgumentNullException(nameof(title));
-            Description = description;
             Article_url = articleUrl ?? throw new ArgumentNullException(nameof(articleUrl));
             Date = date;
             Time = time;
         }
-
-        public string ReturnText(NewsData _newsData)
-        {
-            // Although _newsData.Description may be null it is concatenated with a string the result of which is a string
-            return _newsData.Title + _newsData.Description;
-        }
+        
     }
 
     
@@ -216,7 +209,6 @@ namespace NewsTwitterDPM
                     endResult = parsedData.Select(stock => new NewsData(
                         ticker: elem.Key,
                         title: stock["title"].GetString() ?? throw new InvalidOperationException(),
-                        description: stock["description"].GetString(),
                         articleUrl: stock["article_url"].GetString() ?? throw new InvalidOperationException(),
                         //This should never be null so it's never a problem
                         date: stock["published_utc"].GetString().Split("T")[0] ?? throw new InvalidOperationException(),
