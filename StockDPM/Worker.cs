@@ -21,9 +21,12 @@ namespace StockDPM
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await HistoricStockData.UpdateStockData(stoppingToken, _logger);
+                //CreateTables.CreateHistoricStockTable();
+                //Console.WriteLine("AloDa");
+                //await HistoricStockData.UpdateStockData(stoppingToken, _logger);
                 //await HistoricStockData.FirstStockDataRequest(stoppingToken, _logger);
-                //await Task.Delay(1000, stoppingToken);
+                await Task.Delay(1000, stoppingToken);
+                break;
             }
         }
     }

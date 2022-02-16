@@ -13,10 +13,10 @@ namespace StockDPM
     public class StockData
     {
         public string Ticker { get; set; }
-        public double Open { get; set; }
-        public double Close { get; set; }
-        public double High { get; set; }
-        public double Low { get; set; }
+        public decimal Open { get; set; }
+        public decimal Close { get; set; }
+        public decimal High { get; set; }
+        public decimal Low { get; set; }
         public UInt64 Volume { get; set; }
         public UInt64 NumberOfTransactions { get; set; }
     }
@@ -47,10 +47,10 @@ namespace StockDPM
                     List<StockData> timestepData = parsedData
                         .Where(stock => StockList.SList.Contains(stock["T"].ToString())).Select(stock => new StockData()
                         {
-                            High = stock["h"].GetDouble(),
-                            Low = stock["l"].GetDouble(),
-                            Open = stock["o"].GetDouble(),
-                            Close = stock["c"].GetDouble(),
+                            High = stock["h"].GetDecimal(),
+                            Low = stock["l"].GetDecimal(),
+                            Open = stock["o"].GetDecimal(),
+                            Close = stock["c"].GetDecimal(),
                             Ticker = stock["T"].GetString(),
                             Volume = Decimal.ToUInt64(stock["v"].GetDecimal()),
                             NumberOfTransactions = stock["n"].GetUInt64()
