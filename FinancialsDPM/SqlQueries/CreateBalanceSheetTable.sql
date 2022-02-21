@@ -1,0 +1,93 @@
+IF (NOT EXISTS (SELECT *
+                FROM INFORMATION_SCHEMA.TABLES
+                WHERE  TABLE_NAME = 'BalanceSheetTable'))
+    begin
+    CREATE TABLE [dbo].[BalanceSheetTable](
+                                                 [Ticker] varchar(10),
+                                                 [fiscalDateEnding] varchar(200),
+                                                 [reportedCurrency] varchar(200),
+                                                 [totalAssets] varchar(200),
+                                                 [totalCurrentAssets] varchar(200),
+                                                 [cashAndCashEquivalentsAtCarryingValue] varchar(200),
+                                                 [cashAndShortTermInvestments] varchar(200),
+                                                 [inventory] varchar(200),
+                                                 [currentNetReceivables] varchar(200),
+                                                 [totalNonCurrentAssets] varchar(200),
+                                                 [propertyPlantEquipment] varchar(200),
+                                                 [accumulatedDepreciationAmortizationPPE] varchar(200),
+                                                 [intangibleAssets] varchar(200),
+                                                 [intangibleAssetsExcludingGoodwill] varchar(200),
+                                                 [goodwill] varchar(200),
+                                                 [investments] varchar(200),
+                                                 [longTermInvestments] varchar(200),
+                                                 [shortTermInvestments] varchar(200),
+                                                 [otherCurrentAssets] varchar(200),
+                                                 [otherNonCurrrentAssets] varchar(200),
+                                                 [totalLiabilities] varchar(200),
+                                                 [totalCurrentLiabilities] varchar(200),
+                                                 [currentAccountsPayable] varchar(200),
+                                                 [deferredRevenue] varchar(200),
+                                                 [currentDebt] varchar(200),
+                                                 [shortTermDebt] varchar(200),
+                                                 [totalNonCurrentLiabilities] varchar(200),
+                                                 [capitalLeaseObligations] varchar(200),
+                                                 [longTermDebt] varchar(200),
+                                                 [currentLongTermDebt] varchar(200),
+                                                 [longTermDebtNoncurrent] varchar(200),
+                                                 [shortLongTermDebtTotal] varchar(200),
+                                                 [otherCurrentLiabilities] varchar(200),
+                                                 [otherNonCurrentLiabilities] varchar(200),
+                                                 [totalShareholderEquity] varchar(200),
+                                                 [treasuryStock] varchar(200),
+                                                 [retainedEarnings] varchar(200),
+                                                 [commonStock] varchar(200),
+                                                 [commonStockSharesOutstanding] varchar(200)
+
+    );
+    end
+
+ELSE
+    begin 
+    DROP TABLE [dbo].[BalanceSheetTable]
+    CREATE TABLE [dbo].[BalanceSheetTable](
+                                              [Ticker] varchar(10),
+                                              [fiscalDateEnding] varchar(200),
+                                              [reportedCurrency] varchar(200),
+                                              [totalAssets] varchar(200),
+                                              [totalCurrentAssets] varchar(200),
+                                              [cashAndCashEquivalentsAtCarryingValue] varchar(200),
+                                              [cashAndShortTermInvestments] varchar(200),
+                                              [inventory] varchar(200),
+                                              [currentNetReceivables] varchar(200),
+                                              [totalNonCurrentAssets] varchar(200),
+                                              [propertyPlantEquipment] varchar(200),
+                                              [accumulatedDepreciationAmortizationPPE] varchar(200),
+                                              [intangibleAssets] varchar(200),
+                                              [intangibleAssetsExcludingGoodwill] varchar(200),
+                                              [goodwill] varchar(200),
+                                              [investments] varchar(200),
+                                              [longTermInvestments] varchar(200),
+                                              [shortTermInvestments] varchar(200),
+                                              [otherCurrentAssets] varchar(200),
+                                              [otherNonCurrrentAssets] varchar(200),
+                                              [totalLiabilities] varchar(200),
+                                              [totalCurrentLiabilities] varchar(200),
+                                              [currentAccountsPayable] varchar(200),
+                                              [deferredRevenue] varchar(200),
+                                              [currentDebt] varchar(200),
+                                              [shortTermDebt] varchar(200),
+                                              [totalNonCurrentLiabilities] varchar(200),
+                                              [capitalLeaseObligations] varchar(200),
+                                              [longTermDebt] varchar(200),
+                                              [currentLongTermDebt] varchar(200),
+                                              [longTermDebtNoncurrent] varchar(200),
+                                              [shortLongTermDebtTotal] varchar(200),
+                                              [otherCurrentLiabilities] varchar(200),
+                                              [otherNonCurrentLiabilities] varchar(200),
+                                              [totalShareholderEquity] varchar(200),
+                                              [treasuryStock] varchar(200),
+                                              [retainedEarnings] varchar(200),
+                                              [commonStock] varchar(200),
+                                              [commonStockSharesOutstanding] varchar(200)
+);
+    end

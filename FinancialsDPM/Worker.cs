@@ -1,8 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
+using FinancialsDPM.FinancialsDPM;
+using FinancialsDPM.FinancialsDPM.FinancialsDPM;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using GetBalanceSheetData = FinancialsDPM.FinancialsDPM.GetBalanceSheetData;
 
 namespace FinancialsDPM
 {
@@ -19,8 +24,11 @@ namespace FinancialsDPM
         {
             while (!stoppingToken.IsCancellationRequested)
             {
+
+
+                Console.WriteLine("Manqk");
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
+                await Task.Delay(50000, stoppingToken);
             }
         }
     }

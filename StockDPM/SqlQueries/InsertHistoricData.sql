@@ -1,6 +1,3 @@
-IF (EXISTS (SELECT *
-                FROM INFORMATION_SCHEMA.TABLES
-                WHERE  TABLE_NAME = 'HistoricalStockDataTable'))
 INSERT INTO [dbo].[HistoricalStockDataTable] ([Ticker],
                                               [DateAdded],
                                               [Open],
