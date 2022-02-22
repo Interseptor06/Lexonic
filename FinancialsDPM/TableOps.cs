@@ -12,9 +12,9 @@ namespace FinancialsDPM
     {
         public static void CreateBalanceSheetTable()
         {
-            string script =
-                File.ReadAllText(
-                    @"/home/martin/RiderProjects/Lexonic/FinancialsDPM/SqlQueries/CreateBalanceSheetTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateBalanceSheetTable.sql");
+            
+            string script = File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -27,9 +27,10 @@ namespace FinancialsDPM
 
         public static void CreateCashFlowTable()
         {
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateCashFlowTable.sql");
+            
             string script =
-                File.ReadAllText(
-                    @"/home/martin/RiderProjects/Lexonic/FinancialsDPM/SqlQueries/CreateCashFlowTable.sql");
+                File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -42,9 +43,11 @@ namespace FinancialsDPM
 
         public static void CreateCompanyOverviewTable()
         {
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateCompanyOverviewTable.sql");
+
+            
             string script =
-                File.ReadAllText(
-                    @"/home/martin/RiderProjects/Lexonic/FinancialsDPM/SqlQueries/CreateCompanyOverviewTable.sql");
+                File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -57,9 +60,10 @@ namespace FinancialsDPM
 
         public static void CreateEarningsTable()
         {
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateEarningsTable.sql");
+
             string script =
-                File.ReadAllText(
-                    @"/home/martin/RiderProjects/Lexonic/FinancialsDPM/SqlQueries/CreateEarningsTable.sql");
+                File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -72,9 +76,10 @@ namespace FinancialsDPM
 
         public static void CreateIncomeStatementTable()
         {
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateIncomeStatementTable.sql");
+
             string script =
-                File.ReadAllText(
-                    @"/home/martin/RiderProjects/Lexonic/FinancialsDPM/SqlQueries/CreateIncomeStatementTable.sql");
+                File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -91,8 +96,9 @@ namespace FinancialsDPM
     {
         public static void UpdateBalanceSheetTable(BalanceSheet bData)
         {
-            string script =
-                File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/FinancialsDPM/SqlQueries/UpdateBalanceSheetTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "UpdateBalanceSheetTable.sql");
+
+            string script = File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -145,8 +151,10 @@ namespace FinancialsDPM
 
         public static void UpdateCashFlowTable(CashFlow eData)
         {
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "UpdateCashFlowTable.sql");
+
             string script =
-                File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/FinancialsDPM/SqlQueries/UpdateCashFlowTable.sql");
+                File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -190,8 +198,9 @@ namespace FinancialsDPM
 
         public static void UpdateCompanyOverviewTableTable(CompanyOverview coData)
         {
-            string script =
-                File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/FinancialsDPM/SqlQueries/UpdateCompanyOverviewTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "UpdateCompanyOverviewTable.sql");
+
+            string script = File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -251,8 +260,9 @@ namespace FinancialsDPM
 
         public static void UpdateEarningsTable(Earnings eData)
         {
-            string script =
-                File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/FinancialsDPM/SqlQueries/UpdateEarningsTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "UpdateEarningsTable.sql");
+
+            string script = File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -269,8 +279,9 @@ namespace FinancialsDPM
 
         public static void UpdateIncomeStatementTable(IncomeStatement isData)
         {
-            string script =
-                File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/FinancialsDPM/SqlQueries/UpdateIncomeStatementTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "UpdateIncomeStatementTable.sql");
+
+            string script = File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
