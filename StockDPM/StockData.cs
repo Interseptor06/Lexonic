@@ -17,8 +17,8 @@ namespace StockDPM
         public decimal Close { get; set; }
         public decimal High { get; set; }
         public decimal Low { get; set; }
-        public UInt64 Volume { get; set; }
-        public UInt64 NumberOfTransactions { get; set; }
+        public Int64 Volume { get; set; }
+        public Int64 NumberOfTransactions { get; set; }
     }
     
 
@@ -52,8 +52,8 @@ namespace StockDPM
                             Open = stock["o"].GetDecimal(),
                             Close = stock["c"].GetDecimal(),
                             Ticker = stock["T"].GetString(),
-                            Volume = Decimal.ToUInt64(stock["v"].GetDecimal()),
-                            NumberOfTransactions = stock["n"].GetUInt64()
+                            Volume = Int64.Parse(stock["v"].GetDecimal().ToString()),
+                            NumberOfTransactions = stock["n"].GetInt64()
                         })
                         .ToList();
 
@@ -110,6 +110,12 @@ namespace StockDPM
             HttpClient httpClient = new();
             while (historicalData.Count <= 253)
             {
+                
+                if (Date.DayOfWeek == DayOfWeek.Saturday || Date.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    Date = Date.AddDays(-1);
+                    continue;
+                }
                 // Formats date to proper format
                 string dateString = FormatDate(Date);
                 try
@@ -139,7 +145,9 @@ namespace StockDPM
                     logger.LogInformation("Exception thrown : {Exception}", e.ToString());
                     await Task.Delay(12000, stoppingToken);
                 }
+                Console.WriteLine(historicalData.Count);
             }
+
             return historicalData;
         }
         
@@ -183,21 +191,5 @@ namespace StockDPM
             return historicalData;
         }
         
-        public static async Task FillTable(string data)
-        {
-            // TODO: Create method that creates (login,user,role) for each service(Twitter, News, Ticker Data etc.) that will be accessing the DB
-            // For now it is left empty 
-            string Password = String.Empty;
-            string Id = String.Empty;
-            string connStr = $"Server=localhost;database=testDB;User ID={Id}; Password={Password}; Encrypt=No;Initial Catalog=TestDB";
-            await using (SqlConnection myConn = new(connStr))
-            { 
-                myConn.Open();
-                // Do work here //
-                Console.WriteLine("Opened");
-                // Connection closed here //
-            } 
-            await Task.Delay(5000);
-        }
     }
 }

@@ -25,7 +25,6 @@ namespace NewsTwitterDPM
             Date = date;
             Time = time;
         }
-        
     }
 
     
@@ -85,6 +84,11 @@ namespace NewsTwitterDPM
             using HttpClient httpClient = new();
             foreach (var stock in StockList.SList)
             {
+                if (Date.DayOfWeek == DayOfWeek.Saturday || Date.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    Date = Date.AddDays(-1);
+                    continue;
+                }
                 // Formats date to proper format
                 string dateString = FormatDate(Date.AddDays(-DateTime.UtcNow.Day));
                 try

@@ -39,7 +39,7 @@ namespace StockDPM
             command.ExecuteNonQuery();        
         }
 
-        public static void InsertHistoricStockTable(string _ticker, string _date, decimal _open, decimal _close, decimal _high, decimal _low, UInt64 _volume, UInt64 _numoftransacts)
+        public static void InsertHistoricStockTable(string _ticker, string _date, decimal _open, decimal _close, decimal _high, decimal _low, Int64 _volume, Int64 _numoftransacts)
         {
             string script =
                 File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/StockDPM/SqlQueries/InsertHistoricData.sql");
@@ -102,5 +102,33 @@ namespace StockDPM
                 }
             }
         }
+        /*
+        public static List<StockData> selectHistoricData(string Ticker, int nPast)
+        {
+            List<StockData> returnData = new();
+            DateOnly tempDate = DateOnly.FromDateTime(DateTime.Now);
+            tempDate = tempDate.AddDays(-nPast);
+            string script = "select * from [dbo].[HistoricalStockDataTable] where [Ticker] = @_Ticker and [DateAdded] < @tempDate";
+            string connectionString =
+                "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand command = new SqlCommand(script, connection);
+            command.Parameters.AddWithValue("@_Ticker", ticker);
+            
+            connection.Open();
+            
+            using (SqlDataReader oReader = command.ExecuteReader())
+            {
+                while (oReader.Read())
+                {    
+                    
+                    returnData.Add();
+
+                }
+            }
+            return returnData;
+        }
+        */
     }
 }
