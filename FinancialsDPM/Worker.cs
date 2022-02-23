@@ -51,8 +51,8 @@ namespace FinancialsDPM
                         await GetCompanyOverviewData.CompanyOverviewRequest(_logger, stoppingToken, true))[0]);
                 
                 //Console.WriteLine("ALO");
-                // 5 minutes delay
-                await Task.Delay(1000*60*5, stoppingToken);
+                // 24 hour minutes delay
+                await Task.Delay(1000*60*60*24, stoppingToken);
             }
         }
     }

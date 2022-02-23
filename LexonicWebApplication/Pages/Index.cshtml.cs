@@ -29,7 +29,7 @@ namespace LexonicWebApplication.Pages
         public string ValueToPass;
         public IActionResult OnPost()
         {
-            if (StockList.SList.Contains(ValueToPass))
+            if (LexonicWebApplication.StockList.SList.Contains(TargetStock.ToUpper()))
             {
                 return RedirectToPage("Privacy", new {ValueToPass = TargetStock});
             }

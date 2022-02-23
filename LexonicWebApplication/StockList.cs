@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace StockDPM
+namespace LexonicWebApplication
 {
     public static class StockList
     {

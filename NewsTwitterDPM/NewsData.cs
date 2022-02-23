@@ -115,21 +115,23 @@ namespace NewsTwitterDPM
                     }
 
                     // Adding these curly brackets only for clarity , THEY ARE NOT NECESSARY
-                    {
-                        Console.WriteLine(responseBody);
+                    
+                        //Console.WriteLine(responseBody);
                         logger.LogInformation("Successfully received info at: {Time}", DateTimeOffset.UtcNow);
                         historicalData.Add(stock, responseBody);
                         Date = Date.AddDays(-1);
                         await Task.Delay(12000, stoppingToken);
-                    }
+                    
                 }
                 catch (HttpRequestException e)
                 {
                     logger.LogInformation("Caught exception: {Exception}", e.ToString());
                     await Task.Delay(12000, stoppingToken);
                 }
+                // TODO: REMOVE BEFORE PRODUCTION CODE
+                break;
             }
-            Console.WriteLine("Bruh");
+            //Console.WriteLine("Bruh");
             return historicalData;
         }
 
@@ -183,6 +185,8 @@ namespace NewsTwitterDPM
                     await Task.Delay(12000, stoppingToken);
                 }
                 // TODO: Remove before commit
+                // TODO: REMOVE BEFORE PRODUCTION CODE
+                break;
             }
 
             // Return dictionary of size 1 which is basically a KeyValuePair, but since c# doesn't implicitly
