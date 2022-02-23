@@ -5,6 +5,10 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">namaikatiputkata</h1>
+    <h1 class="display-4">Stock: @Model.TargetStock</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<form method="post">
+    <input placeholder = "Stock Name" type = "text" asp-for="TargetStock"></input>
+</form>
