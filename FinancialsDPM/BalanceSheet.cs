@@ -2,7 +2,6 @@ namespace FinancialsDPM
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Net.Http;
     using System.Runtime.CompilerServices;
     using System.Text.Json;
@@ -149,7 +148,7 @@ namespace FinancialsDPM
         {
             private static string api_key = "47BGPYJPFN4CEC20";
 
-            public static async Task<List<string>> BalanceSheetRequest(ILogger ilogger, CancellationToken stoppingToken)
+            public static async Task<List<string>> BalanceSheetRequest(ILogger ilogger, CancellationToken stoppingToken, bool toBreak=false)
             {
                 List<string> BalanceSheets = new();
                 using HttpClient httpClient = new();
@@ -162,14 +161,19 @@ namespace FinancialsDPM
                             $"https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol={stock}&apikey={api_key}",
                             stoppingToken);
                         ilogger.LogInformation("Successfully received info at: {Time}", DateTimeOffset.UtcNow);
+                        await Task.Delay(12000, stoppingToken);
                     }
                     catch (Exception e)
                     {
                         ilogger.LogInformation("Exception thrown : {Exception}", e.ToString());
+                        await Task.Delay(12000, stoppingToken);
                     }
 
                     BalanceSheets.Add(responseBody);
-                    break;
+                    if (toBreak)
+                    {
+                        break;
+                    }
                 }
 
                 return BalanceSheets;

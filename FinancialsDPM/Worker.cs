@@ -14,6 +14,7 @@ namespace FinancialsDPM
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
+        private bool isInit = false;
 
         public Worker(ILogger<Worker> logger)
         {
@@ -24,11 +25,34 @@ namespace FinancialsDPM
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-
-
-                Console.WriteLine("Manqk");
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(50000, stoppingToken);
+                if (isInit == false)
+                {
+                    FinancialsTableOps.CreateTables();
+                    isInit = true;
+                }
+                FinancialsUpdateTables.UpdateEarningsTable(
+                    GetEarningsData.ProcessBalanceSheetData(
+                        await GetEarningsData.EarningsRequest(_logger, stoppingToken, true))[0]);
+                
+                FinancialsUpdateTables.UpdateCashFlowTable(
+                    GetCashFlowData.ProcessCashFlowData(
+                        await GetCashFlowData.CashFlowDataRequest(_logger, stoppingToken, true))[0]);
+                
+                FinancialsUpdateTables.UpdateBalanceSheetTable(
+                    GetBalanceSheetData.ProcessBalanceSheetData(
+                        await GetBalanceSheetData.BalanceSheetRequest(_logger, stoppingToken, true))[0]);
+                
+                FinancialsUpdateTables.UpdateIncomeStatementTable(
+                    GetIncomeStatementData.ProcessIncomeStatementsData(
+                        await GetIncomeStatementData.IncomeStatementRequest(_logger, stoppingToken, true))[0]);
+                
+                FinancialsUpdateTables.UpdateCompanyOverviewTableTable(
+                    GetCompanyOverviewData.ProcessCompanyOverviewData(
+                        await GetCompanyOverviewData.CompanyOverviewRequest(_logger, stoppingToken, true))[0]);
+                
+                //Console.WriteLine("ALO");
+                // 5 minutes delay
+                await Task.Delay(1000*60*5, stoppingToken);
             }
         }
     }

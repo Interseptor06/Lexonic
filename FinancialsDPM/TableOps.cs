@@ -8,8 +8,16 @@ using Microsoft.Data.SqlClient;
 namespace FinancialsDPM
 {
 
-    public class CreateTables
+    public class FinancialsTableOps
     {
+        public static void CreateTables()
+        {
+            CreateEarningsTable();
+            CreateBalanceSheetTable();
+            CreateCashFlowTable();
+            CreateCompanyOverviewTable();
+            CreateIncomeStatementTable();
+        }
         public static void CreateBalanceSheetTable()
         {
             string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateBalanceSheetTable.sql");
@@ -92,7 +100,7 @@ namespace FinancialsDPM
     }
     
     
-    public class UpdateTables
+    public class FinancialsUpdateTables
     {
         public static void UpdateBalanceSheetTable(BalanceSheet bData)
         {
@@ -323,7 +331,7 @@ namespace FinancialsDPM
     }
 
     
-    public static class SelectData
+    public static class FinancialsSelectData
     {
         public static BalanceSheet SelectBalanceSheetData(string ticker)
         {

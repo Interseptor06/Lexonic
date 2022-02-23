@@ -8,8 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Data.SqlClient" Version="4.0.0" />
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
       <PackageReference Include="Microsoft.ML" Version="1.7.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FinancialsDPM\FinancialsDPM.csproj" />
+      <ProjectReference Include="..\NewsTwitterDPM\NewsTwitterDPM.csproj" />
+      <ProjectReference Include="..\StockDPM\StockDPM.csproj" />
     </ItemGroup>
 
 </Project>
