@@ -4,12 +4,41 @@
     ViewData["Title"] = "Home page";
 }
 
+<style>
+      button:hover, button:focus {
+      outline: none;
+      }
+      input:focus::placeholder {
+        color: transparent;
+      }
+      ::placeholder{
+        color:  lightgray;
+      }
+      
+      input {
+        border-color: white;
+        border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        border-bottom-style: groove;
+        background-color: #2d3436;
+      }
+      
+      .no-outline:focus {
+        outline: none;
+      }
+    </style>
+<!-- NE RABOTI DEEBA
+<head>
+    <link rel="stylesheet" href="style.css" />
+</head>
+-->
 <div id="indexwrap">
-<div class="text-center">
-    <h1 class="display-4">Lexonic</h1>
+<div class="text-center" style="margin-bottom: 100px; margin-top: 150px">
+    <h1 class="display-4" style="color: white;">All the information you need</h1>
 </div>
 
-<form method="post">
-    <input placeholder = "Stock Name" type = "text" asp-for="TargetStock"></input>
+<form method="post" class="text-center">
+    <input placeholder = "Which stock are you searching for today?" asp-for="TargetStock" style="width: 500px; ">
 </form>
 </div>

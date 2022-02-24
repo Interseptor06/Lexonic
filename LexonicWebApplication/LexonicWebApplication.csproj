@@ -18,4 +18,8 @@
       <ProjectReference Include="..\StockDPM\StockDPM.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Pages\IndexStyle.css" />
+    </ItemGroup>
+
 </Project>

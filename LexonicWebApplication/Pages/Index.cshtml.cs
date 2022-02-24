@@ -26,10 +26,15 @@ namespace LexonicWebApplication.Pages
             
         }
 
+        private char dollarSign = '$';
+        
         public string ValueToPass;
         public IActionResult OnPost()
         {
-            if (LexonicWebApplication.StockList.SList.Contains(TargetStock.ToUpper()))
+            //Data processing
+            TargetStock = TargetStock.TrimStart(dollarSign);
+            TargetStock = TargetStock.ToUpper();
+            if (LexonicWebApplication.StockList.SList.Contains(TargetStock))
             {
                 return RedirectToPage("Privacy", new {ValueToPass = TargetStock});
             }

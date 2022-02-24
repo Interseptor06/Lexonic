@@ -24,7 +24,7 @@ namespace LexonicWebApplication.Pages
 
         [BindProperty(SupportsGet = true)]
         public string ValueToPass {get; set;}
-
+/*
         public double OurPrice { get; set; }
 
         public BalanceSheet balanceSheet { get; set; }
@@ -48,5 +48,6 @@ namespace LexonicWebApplication.Pages
             OurPrice = double.Parse(companyOverview.AnalystTargetPrice)- 2.176;
 
         }
+        */
     }
 }

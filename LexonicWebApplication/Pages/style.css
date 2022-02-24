@@ -1,0 +1,22 @@
+﻿button:hover, button:focus {
+    outline: none;
+}
+input:focus::placeholder {
+    color: transparent;
+}
+::placeholder{
+    color:  lightgray;
+}
+
+input {
+    border-color: white;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+    background-color: #2d3436;
+}
+
+.no-outline:focus {
+    outline: none;
+}

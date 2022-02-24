@@ -1,9 +1,9 @@
 @page
 @model PrivacyModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Lexonic Analisys";
 }
-<h1>@ViewData["Title"]</h1>
+<!--<h1>@ViewData["Title"]</h1>-->
 
 <style>
     body{
@@ -32,36 +32,161 @@
       border: thin white;
       /* Just so it's visible */
     }
+    
+    *{
+        box-sizing: border-box;
+    }
+    
+    .marquee{
+        box-shadow: 0 16px 32px -2px rgba(0,0,0,0.25);
+        background-color: black;
+        margin-left: -500px;
+        margin-top: -32px;
+        padding: 0;
+        overflow: hidden;
+        width: 5000px;
+        height: 32px;
+        line-height: 50px;
+    }
+    .marquee span{
+        position: relative;
+        padding: 0 0 0 0;
+        overflow: visible;
+        white-space: nowrap;
+        font-size: 20px;
+        height: 25px;
+        line-height: 25px;
+    }
+    .marquee span::before{
+        position: absolute;
+        left: -110px;
+        top: 20px;
+        width: 100px;
+        height: 20px;
+        font-size: 5px;
+        line-height: 5px;
+        display: block;
+        text-align: right;
+        text-transform: uppercase;
+        white-space: normal;
+    }
+    
+    .marquee.patrick span::before{
+        content: '';
+    }
+    
+    .chartAndFirst{
+        display: flex;
+        background-color: #212529;
+        padding: 10px;
+        margin-left: -250px;
+        margin-right: -260px;;
+    }
+    
+    .flex-child {
+        flex: 1;
+        
+    }  
+    
+    .flex-child:first-child {
+        margin-right: 20px;
+    } 
 </style>
 
 <body>
-<p>Use this page to detail your site's privacy policy. @Model.ValueToPass</p>
 
-<p>@Model.ValueToPass</p>
+<div class="marquee patrick">
+    
+    
+    
+    <!-- TUK SHTE SLOJIM TOP 20 AKCII TOVA E DUMMY DATA-->
+    
+    
+    <span>
+        $GOOGL -3.4 | $TSLA +0.1 | $AAPL +0.1 | $SBUX +6.2 | DOW J -103 | S&P 500 -1069 |
+    </span>
+    <span>
+        $GOOGL -3.4 | $TSLA +0.1 | $AAPL +0.1 | $SBUX +6.2 | DOW J -103 | S&P 500 -1069 |
+    </span>
+    <span>
+        $GOOGL -3.4 | $TSLA +0.1 | $AAPL +0.1 | $SBUX +6.2 | DOW J -103 | S&P 500 -1069 |
+    </span>
+    
 
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js" ></script>
+
+    <script>
+        $('.marquee').marquee({
+	//duration in milliseconds of the marquee
+	duration: 25000,
+	//gap in pixels between the tickers
+	gap:0,
+	//time in milliseconds before the marquee will start animating
+	delayBeforeStart: 0,
+	//'left' or 'right'
+	direction: 'left',
+	//true or false - should the marquee be duplicated to show an effect of continues flow
+	duplicated: true,
+    startVisible:true,
+    pauseOnHover:true
+});
+    </script>
+
+<div style="text-align: center;">
+    <p style="margin-top: 40px; font-size: 30px; margin-bottom: 20px">$ @Model.ValueToPass (Da izmislim nachin da pokazvame akciqta tuk bez da e grozno)</p>
+</div>
+
+
+<!-- TRQBVA DA SE OPRAVI CVETA NA HR -->
+
+
+<hr style="width: 2000px; margin-left: -400px; background-color: #212529; height: 8px">
+
+
+<!-- TRQBVA DA SE OPRAVI CVETA NA HR -->
+
+
+
+<div class="chartAndFirst">
+    <div class="flex-child">
+        <div id="chart_div" style="width: 1200px; height: 500px;"></div>
+    </div>
+    <div class="flex-child">
+        <p>test
+    </div>
+</div>
+
+<div class="chartAndFirst" style="margin-top: 15px">
+    <p> test
+    <p> test
+    <p> test
+</div>
+<!--
 <table>
     <tr>
-        <th>@Model.NewsDatas[0].Title</th>
-        <th>@Model.NewsDatas[1].Title</th>
-        <th>@Model.NewsDatas[2].Title</th>
-        <th>@Model.NewsDatas[3].Title</th>
-        <th>@Model.NewsDatas[4].Title</th>
+        <th>Model.NewsDatas[0].Title</th>
+        <th>Model.NewsDatas[1].Title</th>
+        <th>Model.NewsDatas[2].Title</th>
+        <th>Model.NewsDatas[3].Title</th>
+        <th>Model.NewsDatas[4].Title</th>
     </tr>
     <tr>
         <th>
-            <a href=@Model.NewsDatas[0].Article_url>@Model.NewsDatas[0].Article_url</a>
+            <a href=Model.NewsDatas[0].Article_url>Model.NewsDatas[0].Article_url</a>
         </th>
         <th>
-            <a href=@Model.NewsDatas[1].Article_url>@Model.NewsDatas[1].Article_url</a>
+            <a href=Model.NewsDatas[1].Article_url>Model.NewsDatas[1].Article_url</a>
         </th>
         <th>
-            <a href=@Model.NewsDatas[2].Article_url>@Model.NewsDatas[2].Article_url</a>
+            <a href=Model.NewsDatas[2].Article_url>Model.NewsDatas[2].Article_url</a>
         </th>
         <th>
-            <a href=@Model.NewsDatas[3].Article_url>@Model.NewsDatas[3].Article_url</a>
+            <a href=Model.NewsDatas[3].Article_url>Model.NewsDatas[3].Article_url</a>
         </th>
         <th>
-            <a href=@Model.NewsDatas[4].Article_url>@Model.NewsDatas[4].Article_url</a>
+            <a href=Model.NewsDatas[4].Article_url>Model.NewsDatas[4].Article_url</a>
         </th>
     </tr>
 </table>
@@ -70,86 +195,86 @@
 <table>
     <tr>
         <th>Ticker</th>
-        <td>@Model.companyOverview.Ticker</td>
+        <td>Model.companyOverview.Ticker</td>
     </tr>
     <th>AssetType</th>
-    <td>@Model.companyOverview.AssetType</td>
+    <td>Model.companyOverview.AssetType</td>
     <tr>
         <th>Name</th>
-        <td>@Model.companyOverview.Name</td>
+        <td>Model.companyOverview.Name</td>
     </tr>
     <th>Description</th>
-    <td>@Model.companyOverview.Description</td>
+    <td>Model.companyOverview.Description</td>
     <tr>
 
         <th>CIK</th>
-        <td>@Model.companyOverview.CIK</td>
+        <td>Model.companyOverview.CIK</td>
     </tr>
     <tr>
 
         <th>Exchange</th>
-        <td>@Model.companyOverview.Exchange</td>
+        <td>Model.companyOverview.Exchange</td>
     </tr>
     <tr>
 
         <th>Currency</th>
-        <td>@Model.companyOverview.Currency</td>
+        <td>Model.companyOverview.Currency</td>
     </tr>
     <tr>
 
         <th>Country</th>
-        <td>@Model.companyOverview.Industry</td>
+        <td>Model.companyOverview.Industry</td>
     </tr>
     <tr>
 
         <th>Industry</th>
-        <td>@Model.companyOverview.Address</td>
+        <td>Model.companyOverview.Address</td>
     </tr>
     <tr>
 
         <th>Address</th>
-        <td>@Model.companyOverview.Country</td>
+        <td>Model.companyOverview.Country</td>
     </tr>
     <tr>
 
         <th>EVToRevenue</th>
-        <td>@Model.companyOverview.EVToRevenue</td>
+        <td>Model.companyOverview.EVToRevenue</td>
     </tr>
     <tr>
 
         <th>EVToEBITDA</th>
-        <td>@Model.companyOverview.EVToEBITDA</td>
+        <td>Model.companyOverview.EVToEBITDA</td>
     </tr>
     <tr>
 
         <th>AnalystTargetPrice</th>
-        <td>@Model.companyOverview.AnalystTargetPrice</td>
+        <td>Model.companyOverview.AnalystTargetPrice</td>
     </tr>
     <tr>
 
         <th>OurTargetPrice</th>
-        <td>@Model.OurPrice</td>
+        <td>Model.OurPrice</td>
     </tr>
     <tr>
 
         <th>FiftyTwoWeekHigh</th>
-        <td>@Model.companyOverview.FiftyTwoWeekHigh</td>
+        <td>Model.companyOverview.FiftyTwoWeekHigh</td>
     </tr>
     <tr>
 
         <th>FiftyTwoWeekLow</th>
-        <td>@Model.companyOverview.FiftyTwoWeekLow</td>
+        <td>Model.companyOverview.FiftyTwoWeekLow</td>
     </tr>
     <tr>
 
         <th>FiftyDayMovingAverage</th>
-        <td>@Model.companyOverview.FiftyDayMovingAverage</td>
+        <td>Model.companyOverview.FiftyDayMovingAverage</td>
     </tr>
     <tr>
 
 
         <th>TwoHundredDayMovingAverage</th>
-        <td>@Model.companyOverview.TwoHundredDayMovingAverage</td>
+        <td>Model.companyOverview.TwoHundredDayMovingAverage</td>
     </tr>
 </table>
 
@@ -160,155 +285,155 @@
     <table>
         <tr>
             <th>Ticker</th>
-            <td>@Model.balanceSheet.Ticker</td>
+            <td>Model.balanceSheet.Ticker</td>
         </tr>
         <th>fiscalDateEnding</th>
-        <td>@Model.balanceSheet.fiscalDateEnding</td>
+        <td>Model.balanceSheet.fiscalDateEnding</td>
         <tr>
             <th>reportedCurrency</th>
-            <td>@Model.balanceSheet.reportedCurrency</td>
+            <td>Model.balanceSheet.reportedCurrency</td>
         </tr>
         <th>totalAssets</th>
-        <td>@Model.balanceSheet.totalAssets</td>
+        <td>Model.balanceSheet.totalAssets</td>
         <tr>
             <th>totalCurrentAssets</th>
-            <td>@Model.balanceSheet.totalCurrentAssets</td>
+            <td>Model.balanceSheet.totalCurrentAssets</td>-
         </tr>
         <tr>
             <th>cashAndCashEquivalentsAtCarryingValue</th>
-            <td>@Model.balanceSheet.cashAndCashEquivalentsAtCarryingValue</td>
+            <td>Model.balanceSheet.cashAndCashEquivalentsAtCarryingValue</td>
         </tr>
         <tr>
             <th>cashAndShortTermInvestments</th>
-            <td>@Model.balanceSheet.cashAndShortTermInvestments</td>
+            <td>Model.balanceSheet.cashAndShortTermInvestments</td>
         </tr>
         <tr>
             <th>inventory</th>
-            <td>@Model.balanceSheet.inventory</td>
+            <td>Model.balanceSheet.inventory</td>
         </tr>
         <tr>
             <th>currentNetReceivables</th>
-            <td>@Model.balanceSheet.currentNetReceivables</td>
+            <td>Model.balanceSheet.currentNetReceivables</td>
         </tr>
         <tr>
             <th>totalNonCurrentAssets</th>
-            <td>@Model.balanceSheet.otherNonCurrrentAssets</td>
+            <td>Model.balanceSheet.otherNonCurrrentAssets</td>
         </tr>
         <tr>
             <th>propertyPlantEquipment</th>
-            <td>@Model.balanceSheet.propertyPlantEquipment</td>
+            <td>Model.balanceSheet.propertyPlantEquipment</td>
         </tr>
         <tr>
             <th>accumulatedDepreciationAmortizationPPE</th>
-            <td>@Model.balanceSheet.accumulatedDepreciationAmortizationPPE</td>
+            <td>Model.balanceSheet.accumulatedDepreciationAmortizationPPE</td>
         </tr>
         <tr>
             <th>intangibleAssets</th>
-            <td>@Model.balanceSheet.intangibleAssets</td>
+            <td>Model.balanceSheet.intangibleAssets</td>
         </tr>
         <tr>
             <th>intangibleAssetsExcludingGoodwill</th>
-            <td>@Model.balanceSheet.intangibleAssetsExcludingGoodwill</td>
+            <td>Model.balanceSheet.intangibleAssetsExcludingGoodwill</td>
         </tr>
         <tr>
             <th>goodwill</th>
-            <td>@Model.balanceSheet.goodwill</td>
+            <td>Model.balanceSheet.goodwill</td>
         </tr>
         <tr>
             <th>investments</th>
-            <td>@Model.balanceSheet.investments</td>
+            <td>Model.balanceSheet.investments</td>
         </tr>
         <tr>
             <th>longTermInvestments</th>
-            <td>@Model.balanceSheet.longTermInvestments</td>
+            <td>Model.balanceSheet.longTermInvestments</td>
         </tr>
         <tr>
             <th>shortTermInvestments</th>
-            <td>@Model.balanceSheet.shortTermInvestments</td>
+            <td>Model.balanceSheet.shortTermInvestments</td>
         </tr>
         <tr>
             <th>otherCurrentAssets</th>
-            <td>@Model.balanceSheet.otherCurrentAssets</td>
+            <td>Model.balanceSheet.otherCurrentAssets</td>
         </tr>
         <tr>
             <th>otherNonCurrrentAssets</th>
-            <td>@Model.balanceSheet.otherNonCurrrentAssets</td>
+            <td>Model.balanceSheet.otherNonCurrrentAssets</td>
         </tr>
         <tr>
             <th>totalLiabilities</th>
-            <td>@Model.balanceSheet.totalLiabilities</td>
+            <td>Model.balanceSheet.totalLiabilities</td>
         </tr>
         <tr>
             <th>totalCurrentLiabilities</th>
-            <td>@Model.balanceSheet.totalCurrentLiabilities</td>
+            <td>Model.balanceSheet.totalCurrentLiabilities</td>
         </tr>
         <tr>
             <th>currentAccountsPayable</th>
-            <td>@Model.balanceSheet.currentAccountsPayable</td>
+            <td>Model.balanceSheet.currentAccountsPayable</td>
         </tr>
         <tr>
             <th>deferredRevenue</th>
-            <td>@Model.balanceSheet.deferredRevenue</td>
+            <td>Model.balanceSheet.deferredRevenue</td>
         </tr>
         <tr>
             <th>currentDebt</th>
-            <td>@Model.balanceSheet.currentDebt</td>
+            <td>Model.balanceSheet.currentDebt</td>
         </tr>
         <tr>
             <th>shortTermDebt</th>
-            <td>@Model.balanceSheet.shortTermDebt</td>
+            <td>Model.balanceSheet.shortTermDebt</td>
         </tr>
         <tr>
             <th>totalNonCurrentLiabilities</th>
-            <td>@Model.balanceSheet.totalNonCurrentLiabilities</td>
+            <td>Model.balanceSheet.totalNonCurrentLiabilities</td>
         </tr>
         <tr>
             <th>capitalLeaseObligations</th>
-            <td>@Model.balanceSheet.capitalLeaseObligations</td>
+            <td>Model.balanceSheet.capitalLeaseObligations</td>
         </tr>
         <tr>
             <th>longTermDebt</th>
-            <td>@Model.balanceSheet.longTermDebt</td>
+            <td>Model.balanceSheet.longTermDebt</td>
         </tr>
         <tr>
             <th>currentLongTermDebt</th>
-            <td>@Model.balanceSheet.currentLongTermDebt</td>
+            <td>Model.balanceSheet.currentLongTermDebt</td>
         </tr>
         <tr>
             <th>longTermDebtNoncurrent</th>
-            <td>@Model.balanceSheet.longTermDebtNoncurrent</td>
+            <td>Model.balanceSheet.longTermDebtNoncurrent</td>
         </tr>
         <tr>
             <th>shortLongTermDebtTotal</th>
-            <td>@Model.balanceSheet.shortLongTermDebtTotal</td>
+            <td>Model.balanceSheet.shortLongTermDebtTotal</td>
         </tr>
         <tr>
             <th>otherCurrentLiabilities</th>
-            <td>@Model.balanceSheet.otherCurrentLiabilities</td>
+            <td>Model.balanceSheet.otherCurrentLiabilities</td>
         </tr>
         <tr>
             <th>otherNonCurrentLiabilities</th>
-            <td>@Model.balanceSheet.otherNonCurrentLiabilities</td>
+            <td>Model.balanceSheet.otherNonCurrentLiabilities</td>
         </tr>
         <tr>
             <th>totalShareholderEquity</th>
-            <td>@Model.balanceSheet.totalShareholderEquity</td>
+            <td>Model.balanceSheet.totalShareholderEquity</td>
         </tr>
         <tr>
             <th>treasuryStock</th>
-            <td>@Model.balanceSheet.treasuryStock</td>
+            <td>Model.balanceSheet.treasuryStock</td>
         </tr>
         <tr>
             <th>retainedEarnings</th>
-            <td>@Model.balanceSheet.retainedEarnings</td>
+            <td>Model.balanceSheet.retainedEarnings</td>
         </tr>
         <tr>
             <th>commonStock</th>
-            <td>@Model.balanceSheet.commonStock</td>
+            <td>Model.balanceSheet.commonStock</td>
         </tr>
         <tr>
             <th>commonStockSharesOutstanding</th>
-            <td>@Model.balanceSheet.commonStockSharesOutstanding</td>
+            <td>Model.balanceSheet.commonStockSharesOutstanding</td>
         </tr>
     </table>
 </div>
@@ -319,110 +444,112 @@
     <table>
         <tr>
             <th>Ticker</th>
-            <td>@Model.cashFlow.Ticker</td>
+            <td>Model.cashFlow.Ticker</td>
         </tr>
         <th>fiscalDateEnding</th>
-        <td>@Model.cashFlow.fiscalDateEnding</td>
+        <td>Model.cashFlow.fiscalDateEnding</td>
         <tr>
             <th>reportedCurrency</th>
-            <td>@Model.cashFlow.reportedCurrency</td>
+            <td>Model.cashFlow.reportedCurrency</td>
         </tr>
         <tr>
             <th>operatingCashflow</th>
-            <td>@Model.cashFlow.operatingCashflow</td>
+            <td>Model.cashFlow.operatingCashflow</td>
         </tr>
         <th>paymentsForOperatingActivities</th>
-        <td>@Model.cashFlow.paymentsForOperatingActivities</td>
+        <td>Model.cashFlow.paymentsForOperatingActivities</td>
         <tr>
             <th>proceedsFromOperatingActivities</th>
-            <td>@Model.cashFlow.proceedsFromOperatingActivities</td>
+            <td>Model.cashFlow.proceedsFromOperatingActivities</td>
         </tr>
         <tr>
             <th>changeInOperatingLiabilities</th>
-            <td>@Model.cashFlow.changeInOperatingLiabilities</td>
+            <td>Model.cashFlow.changeInOperatingLiabilities</td>
         </tr>
         <th>changeInOperatingAssets</th>
-        <td>@Model.cashFlow.changeInOperatingAssets</td>
+        <td>Model.cashFlow.changeInOperatingAssets</td>
         <tr>
             <th>depreciationDepletionAndAmortization</th>
-            <td>@Model.cashFlow.depreciationDepletionAndAmortization</td>
+            <td>Model.cashFlow.depreciationDepletionAndAmortization</td>
         </tr>
         <tr>
             <th>capitalExpenditures</th>
-            <td>@Model.cashFlow.capitalExpenditures</td>
+            <td>Model.cashFlow.capitalExpenditures</td>
         </tr>
         <th>changeInReceivables</th>
-        <td>@Model.cashFlow.changeInReceivables</td>
+        <td>Model.cashFlow.changeInReceivables</td>
         <tr>
             <th>changeInInventory</th>
-            <td>@Model.cashFlow.changeInInventory</td>
+            <td>Model.cashFlow.changeInInventory</td>
         </tr>
         <tr>
             <th>profitLoss</th>
-            <td>@Model.cashFlow.profitLoss</td>
+            <td>Model.cashFlow.profitLoss</td>
         </tr>
         <th>cashflowFromInvestment</th>
-        <td>@Model.cashFlow.cashflowFromInvestment</td>
+        <td>Model.cashFlow.cashflowFromInvestment</td>
         <tr>
             <th>cashflowFromFinancing</th>
-            <td>@Model.cashFlow.cashflowFromFinancing</td>
+            <td>Model.cashFlow.cashflowFromFinancing</td>
         </tr>
         <tr>
             <th>proceedsFromRepaymentsOfShortTermDebt</th>
-            <td>@Model.cashFlow.proceedsFromRepaymentsOfShortTermDebt</td>
+            <td>Model.cashFlow.proceedsFromRepaymentsOfShortTermDebt</td>
         </tr>
         <th>paymentsForRepurchaseOfCommonStock</th>
-        <td>@Model.cashFlow.paymentsForRepurchaseOfCommonStock</td>
+        <td>Model.cashFlow.paymentsForRepurchaseOfCommonStock</td>
         <tr>
             <th>paymentsForRepurchaseOfEquity</th>
-            <td>@Model.cashFlow.paymentsForRepurchaseOfEquity</td>
+            <td>Model.cashFlow.paymentsForRepurchaseOfEquity</td>
         </tr>
         <tr>
             <th>paymentsForRepurchaseOfPreferredStock</th>
-            <td>@Model.cashFlow.paymentsForRepurchaseOfPreferredStock</td>
+            <td>Model.cashFlow.paymentsForRepurchaseOfPreferredStock</td>
         </tr>
         <th>dividendPayout</th>
-        <td>@Model.cashFlow.dividendPayout</td>
+        <td>Model.cashFlow.dividendPayout</td>
         <tr>
             <th>dividendPayoutCommonStock</th>
-            <td>@Model.cashFlow.dividendPayoutCommonStock</td>
+            <td>Model.cashFlow.dividendPayoutCommonStock</td>
         </tr>
         <tr>
             <th>dividendPayoutPreferredStock</th>
-            <td>@Model.cashFlow.dividendPayoutPreferredStock</td>
+            <td>Model.cashFlow.dividendPayoutPreferredStock</td>
         </tr>
         <th>proceedsFromIssuanceOfCommonStock</th>
-        <td>@Model.cashFlow.proceedsFromIssuanceOfCommonStock</td>
+        <td>Model.cashFlow.proceedsFromIssuanceOfCommonStock</td>
         <tr>
             <th>proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet</th>
-            <td>@Model.cashFlow.proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet</td>
+            <td>Model.cashFlow.proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet</td>
         </tr>
         <tr>
             <th>proceedsFromIssuanceOfPreferredStock</th>
-            <td>@Model.cashFlow.proceedsFromIssuanceOfPreferredStock</td>
+            <td>Model.cashFlow.proceedsFromIssuanceOfPreferredStock</td>
         </tr>
         <tr>
             <th>proceedsFromRepurchaseOfEquity</th>
-            <td>@Model.cashFlow.proceedsFromRepurchaseOfEquity</td>
+            <td>Model.cashFlow.proceedsFromRepurchaseOfEquity</td>
         </tr>
         <tr>
             <th>proceedsFromSaleOfTreasuryStock</th>
-            <td>@Model.cashFlow.proceedsFromSaleOfTreasuryStock</td>
+            <td>Model.cashFlow.proceedsFromSaleOfTreasuryStock</td>
         </tr>
         <tr>
             <th>changeInCashAndCashEquivalents</th>
-            <td>@Model.cashFlow.changeInCashAndCashEquivalents</td>
+            <td>Model.cashFlow.changeInCashAndCashEquivalents</td>
         </tr>
         <tr>
             <th>changeInExchangeRate</th>
-            <td>@Model.cashFlow.changeInExchangeRate</td>
+            <td>Model.cashFlow.changeInExchangeRate</td>
         </tr>
         <tr>
             <th>netIncome</th>
-            <td>@Model.cashFlow.netIncome</td>
+            <td>Model.cashFlow.netIncome</td>
         </tr>
 
     </table>
+    
 </div>
 </div>
+-->
 </body>
