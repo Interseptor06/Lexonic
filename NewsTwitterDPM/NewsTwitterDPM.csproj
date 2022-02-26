@@ -13,10 +13,4 @@
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
         <PackageReference Include="TweetinviAPI" Version="5.0.4" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Compile Include="..\..\twitterPart\twitterPart\Program.cs">
-        <Link>Program.cs</Link>
-      </Compile>
-    </ItemGroup>
 </Project>
