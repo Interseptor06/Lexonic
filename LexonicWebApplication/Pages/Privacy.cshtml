@@ -40,13 +40,13 @@
     .marquee{
         box-shadow: 0 16px 32px -2px rgba(0,0,0,0.25);
         background-color: black;
-        margin-left: -500px;
+        margin-left: -1000px;
         margin-top: -32px;
         padding: 0;
         overflow: hidden;
         width: 5000px;
-        height: 1.2em;
-        line-height: 1em;
+        height: 2em;
+        line-height: 2em;
     }
     .marquee span{
         position: relative;
@@ -54,8 +54,8 @@
         overflow: visible;
         white-space: nowrap;
         font-size: 20px;
-        height: 1em;
-        line-height: 1em;
+        height: 2em;
+        line-height: 2em;
     }
     .marquee span::before{
         position: absolute;
@@ -82,6 +82,11 @@
         margin-left: -250px;
         margin-right: -260px;;
     }
+    
+    .lowerDiv{
+            background-color: #212529;
+            padding: 10px;
+        }
     
     .flex-child {
         flex: 1;
@@ -135,33 +140,56 @@
     </script>
 
 <div style="text-align: center;">
-    <p style="margin-top: 40px; font-size: 30px; margin-bottom: 20px">$ @Model.ValueToPass (Da izmislim nachin da pokazvame akciqta tuk bez da e grozno)</p>
+    <p style="margin-top: 40px; font-size: 30px; margin-bottom: 20px">$@Model.ValueToPass</p>
 </div>
 
 
 <!-- TRQBVA DA SE OPRAVI CVETA NA HR -->
 
 
-<hr style="width: 2000px; margin-left: -400px; background-color: #212529; height: 8px">
+<hr style="width: 5000px; margin-left: -1000px; background-color: #576574; height: 8px">
 
 
 <!-- TRQBVA DA SE OPRAVI CVETA NA HR -->
 
 
-
+<div>
 <div class="chartAndFirst">
     <div class="flex-child">
         <div id="chart_div" style="width: 1200px; height: 500px;"></div>
     </div>
     <div class="flex-child">
-        <p>test
+        <h2>Our Prediction</h2>
+        <h4 style="color: #57e1c0; margin-bottom: 2em"> +0.9</h4> 
+        <h2>Analysts' Prediction</h2>
+        <h4 style="color: #57e1c0; margin-bottom: 2em"> +0.6</h4> 
+        <h2>News Sentiment</h2>
+        <h4 style="color: #8395a7; margin-bottom: 2em">Neutral</h4> 
+        <h2>Twitter Sentiment</h2>
+        <h4 style="color: #57e1c0; margin-bottom: 2em">Mostly Positive</h4> 
     </div>
 </div>
 
-<div class="chartAndFirst" style="margin-top: 15px">
-    <p> test
-    <p> test
-    <p> test
+<div align="left" class="chartAndFirst" style="margin-top: 15px; padding:  1em; color:#c8d6e5; background-color:#2d3436" >
+<div class="flex-child" style="background-color:#212529; padding: 1.5em">
+    <div>
+        <h4 style="color: #8395a7">Desciription</h4>
+        <p style="align-items: center; margin: 1.5em">Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include a search engine, online advertising technologies, cloud computing, software, and hardware.</p>
+    </div>   
+    <div>
+            <h4 style="color: #8395a7; margin-top: 2em">Sector</h4>
+            <p style="align-items: center; margin: 1.5em">Technology</p>
+    </div>
+    <div>
+            <h4 style="color: #8395a7; margin-top: 2em">Industry</h4>
+            <p style="align-items: center; margin: 1.5em">Artificial intelligence Advertising Cloud computing Computer software Computer hardware Internet</p>
+    </div>
+</div> 
+<div class="flex-child" style="background-color:#212529; padding:1em">
+    <h2 align="center" style="margin: 1em; color: #8395a7">News</h2>
+    <p align="left">Meanwhile, GOOGL stock jumped 65% in 2021. Thus far in 2022, shares have dipped 7%. Google stock shot up on its fourth-quarter earnings report.</p>
+</div>
+</div>
 </div>
 <!--
 <table>
