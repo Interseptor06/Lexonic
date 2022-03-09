@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+using StockDPM;
+
 namespace LexonicWebApplication
 {
     public class DummyData
     {
-        public static void Init()
+        public static List<StockData> infoForChart()
         {
             
         }
