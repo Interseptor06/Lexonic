@@ -2,9 +2,11 @@ INSERT INTO [dbo].[NewsDataTable] (           [Ticker],
                                               [Title],
                                               [ArticleURL],
                                               [Date],
-                                              [Time])
+                                              [Time],
+                                            [Sentiment])
 VALUES (@_Ticker,
         @_Title,
         @_ArticleUrl,
         @_Date,
-        @_Time);
+        @_Time,
+        @_Sentiment);

@@ -1,22 +1,10 @@
-IF (NOT EXISTS (SELECT * 
+IF (EXISTS (SELECT * 
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE  TABLE_NAME = 'HistoricalStockDataTable'))
     begin
-CREATE TABLE [dbo].[HistoricalStockDataTable](
-    [Ticker] varchar(10),
-    [DateAdded] date,
-    [Open] money,
-    [Close] money,
-    [High] money,
-    [Low] money,
-    [Volume] bigint,
-    [NumOfTransacts] bigint
-);
-end
+        DROP TABLE [dbo].[HistoricalStockDataTable]
+    end
 
-ELSE
-    begin
-DROP TABLE [dbo].[HistoricalStockDataTable]
 CREATE TABLE [dbo].[HistoricalStockDataTable](
     [Ticker] varchar(10),
     [DateAdded] date,
@@ -27,4 +15,3 @@ CREATE TABLE [dbo].[HistoricalStockDataTable](
     [Volume] bigint,
     [NumOfTransacts] bigint
 );
-end

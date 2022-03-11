@@ -11,5 +11,17 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+        <PackageReference Include="Microsoft.ML" Version="1.7.0" />
+        <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.10.0" />
+        <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="1.7.0" />
+        <PackageReference Include="NumSharp" Version="0.30.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="PolygonData" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NewsTwitterDPM\NewsTwitterDPM.csproj" />
     </ItemGroup>
 </Project>

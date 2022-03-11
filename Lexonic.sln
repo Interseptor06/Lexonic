@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsTwitterDPM", "NewsTwitt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialsDPM", "FinancialsDPM\FinancialsDPM.csproj", "{7474A7EF-6F9A-4F62-BFDB-A9337E410AD9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTesting", "CodeTesting\CodeTesting.csproj", "{DE917DE0-BDF3-44D0-9D00-8440C11C8A93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{7474A7EF-6F9A-4F62-BFDB-A9337E410AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7474A7EF-6F9A-4F62-BFDB-A9337E410AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7474A7EF-6F9A-4F62-BFDB-A9337E410AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE917DE0-BDF3-44D0-9D00-8440C11C8A93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE917DE0-BDF3-44D0-9D00-8440C11C8A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE917DE0-BDF3-44D0-9D00-8440C11C8A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE917DE0-BDF3-44D0-9D00-8440C11C8A93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

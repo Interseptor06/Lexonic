@@ -41,6 +41,7 @@ namespace NewsTwitterDPM
             command.Parameters.AddWithValue("@_ArticleUrl", newsData.Article_url);
             command.Parameters.AddWithValue("@_Date", newsData.Date);
             command.Parameters.AddWithValue("@_Time", newsData.Time);
+            command.Parameters.AddWithValue("@_Sentiment", newsData.Sentiment);
 
 
             connection.Open();
@@ -70,7 +71,8 @@ namespace NewsTwitterDPM
                                                 oReader["Title"].ToString() ?? throw new InvalidOperationException(),
                                             oReader["ArticleURL"].ToString() ?? throw new InvalidOperationException(),
                                                 oReader["Date"].ToString() ?? throw new InvalidOperationException(),
-                                               oReader["Time"].ToString() ?? throw new InvalidOperationException()));
+                                               oReader["Time"].ToString() ?? throw new InvalidOperationException(),
+                                                double.Parse(oReader["Sentiment"].ToString() ?? throw new InvalidOperationException())));
                 }
             }
             

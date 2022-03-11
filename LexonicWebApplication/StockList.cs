@@ -49,7 +49,7 @@ namespace LexonicWebApplication
             "UNP" ,"UAL", "UNH" ,"UPS" ,"URI", "UHS" ,"VLO" ,"VTR" ,"VRSN" ,"VRSK" ,"VZ", "VRTX",
             "VFC", "VIAC", "VTRS" ,"V" ,"VNO" ,"VMC" ,"WRB" ,"WAB", "WMT", "WBA" ,"DIS" ,"WM",
             "WAT" ,"WEC" ,"WFC", "WELL" ,"WST", "WDC", "WRK" ,"WY" ,"WHR" ,"WMB" ,"WTW", "WYNN",
-            "XEL" ,"XLNX" ,"XYL", "YUM", "ZBRA", "ZBH", "ZION", "ZTS"
+            "XEL" ,"XLNX" ,"XYL"
         };
     }
 }

@@ -8,13 +8,13 @@ using Microsoft.Data.SqlClient;
 namespace StockDPM
 {
     
-    public static class CreateTables
+    public static class StockTableOps
     {
 
         public static void CreateHistoricStockTable()
         {
-            string script =
-                File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/StockDPM/SqlQueries/CreateHistoricalDataTableQuery.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateHistoricalDataTableQuery.sql");
+            string script = File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -27,8 +27,8 @@ namespace StockDPM
 
         public static void CreatePredictionDataTable()
         {
-            string script =
-                File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/StockDPM/SqlQueries/CreatePredictionTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreatePredictionTable.sql");
+            string script = File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -41,8 +41,9 @@ namespace StockDPM
 
         public static void InsertHistoricStockTable(string _ticker, string _date, decimal _open, decimal _close, decimal _high, decimal _low, Int64 _volume, Int64 _numoftransacts)
         {
-            string script =
-                File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/StockDPM/SqlQueries/InsertHistoricData.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "InsertHistoricData.sql");
+
+            string script = File.ReadAllText(path);
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
@@ -84,37 +85,33 @@ namespace StockDPM
             }
         }
 
-        public static void BulkInsertHistoricStockTable(Dictionary<DateOnly, List<StockData>> data)
+        public static void BulkInsertHistoricStockTable(List<StockData> data)
         {
-            foreach (KeyValuePair<DateOnly, List<StockData>> pair in data)
+
+            foreach (StockData stock in data)
             {
-                foreach (StockData stock in pair.Value)
-                {
-                    InsertHistoricStockTable(stock.Ticker,
-                                        pair.Key.ToString(),
-                                                stock.Open,
-                                                stock.Close,
-                                                stock.High,
-                                                stock.Low,
-                                                stock.Volume,
-                                stock.NumberOfTransactions
-                        );
-                }
+                InsertHistoricStockTable(stock.Ticker,
+                    stock.Date,
+                    stock.Open,
+                    stock.Close,
+                    stock.High,
+                    stock.Low,
+                    stock.Volume,
+                    stock.NumberOfTransactions
+                );
             }
         }
-        /*
-        public static List<StockData> selectHistoricData(string Ticker, int nPast)
+        
+        public static List<StockData> SelectHistoricData(string Ticker)
         {
             List<StockData> returnData = new();
-            DateOnly tempDate = DateOnly.FromDateTime(DateTime.Now);
-            tempDate = tempDate.AddDays(-nPast);
-            string script = "select * from [dbo].[HistoricalStockDataTable] where [Ticker] = @_Ticker and [DateAdded] < @tempDate";
+            string script = "select * from [dbo].[HistoricalStockDataTable] where [Ticker] = @_Ticker";
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
 
             using SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand command = new SqlCommand(script, connection);
-            command.Parameters.AddWithValue("@_Ticker", ticker);
+            command.Parameters.AddWithValue("@_Ticker", Ticker);
             
             connection.Open();
             
@@ -123,12 +120,22 @@ namespace StockDPM
                 while (oReader.Read())
                 {    
                     
-                    returnData.Add();
+                    returnData.Add(new StockData()
+                    {
+                        Ticker = oReader["Ticker"].ToString(),
+                        Open = decimal.Parse(oReader["Open"].ToString()),
+                        Close = decimal.Parse(oReader["Close"].ToString()),
+                        High = decimal.Parse(oReader["High"].ToString()),
+                        Low = decimal.Parse(oReader["Low"].ToString()),
+                        Volume = Int64.Parse(oReader["Volume"].ToString()),
+                        NumberOfTransactions = Int64.Parse(oReader["NumOfTransacts"].ToString()),
+                        Date = oReader["DateAdded"].ToString()
+                    });
 
                 }
             }
             return returnData;
         }
-        */
+        
     }
 }

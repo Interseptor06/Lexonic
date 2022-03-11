@@ -1,8 +1,11 @@
 using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NewsTwitterDPM;
 
 namespace StockDPM
 {
@@ -18,25 +21,24 @@ namespace StockDPM
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            int counter = 0;
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                if (counter == 0)
-                {
-                    CreateTables.CreateHistoricStockTable();
-                }
-
-                counter++;
-            var PatternTestResult = await HistoricStockData.FirstStockDataRequest(stoppingToken, _logger);
-            Console.WriteLine("fuck1");
-            var test2 = HistoricStockData.ProcessStockData(PatternTestResult, _logger);
-            Console.WriteLine("fuck2");
-            CreateTables.BulkInsertHistoricStockTable(test2);
+            /*
+            //var ExchangeData_x = await HistoricStockData.FirstStockDataRequest(stoppingToken, _logger);
+            //await HistoricStockData.WriteToFile(ExchangeData_x);
+            //NewsTwitterTableOps.SelectFromNewsTable(StockList.SList[0]).ForEach(x=> Console.WriteLine(x.Date));
+            var newsData = NewsTwitterDPM.NewsTwitterTableOps.SelectFromNewsTable("AAPL");
+            var x = HistoricStockData.ReadFiles();
+            var y = HistoricStockData.ProcessStockData(x, null);
+            var n = y.Values.SelectMany(z=> z).ToList();
+            StockDPM.CreateTables.BulkInsertHistoricStockTable(n);
+            //var grouped  = n.GroupBy(b => b.Date).ToList();
+            //Console.WriteLine(grouped[0].Key);
+            Console.WriteLine(x.Values.Count);
+            */
+            Console.WriteLine(StockTableOps.SelectHistoricData("AAPL")[0].Close);
             
-                Console.WriteLine("Fuck you");
-                await Task.Delay(100000);
-            }
+            Console.WriteLine(StockList.SList.Count);
+            Console.WriteLine("TestStr");
+            await Task.Delay(10000, stoppingToken);
         }
     }
 }

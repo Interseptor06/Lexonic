@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -19,6 +20,7 @@ namespace StockDPM
         public decimal Low { get; set; }
         public Int64 Volume { get; set; }
         public Int64 NumberOfTransactions { get; set; }
+        public string Date { get; set; }
     }
     
 
@@ -53,7 +55,8 @@ namespace StockDPM
                             Close = stock["c"].GetDecimal(),
                             Ticker = stock["T"].GetString(),
                             Volume = Int64.Parse(stock["v"].GetDecimal().ToString()),
-                            NumberOfTransactions = stock["n"].GetInt64()
+                            NumberOfTransactions = stock["n"].GetInt64(),
+                            Date = FormatDate(elem.Key)
                         })
                         .ToList();
 
@@ -108,7 +111,7 @@ namespace StockDPM
             string responseBody = String.Empty;
             BasicParse stockParse = new();
             HttpClient httpClient = new();
-            while (historicalData.Count <= 253)
+            while (historicalData.Count < 15)
             {
                 
                 if (Date.DayOfWeek == DayOfWeek.Saturday || Date.DayOfWeek == DayOfWeek.Sunday)
@@ -190,6 +193,30 @@ namespace StockDPM
             // This way the same function for processing the historical data can be used in this case
             return historicalData;
         }
+
+        public static async Task WriteToFile(Dictionary<DateOnly,string> response)
+        {
+            foreach (KeyValuePair<DateOnly, string> Date in response)
+            {
+                string path = Path.Combine(Environment.CurrentDirectory, @"PolygonData", $"sta_{Date.Key.ToString().Replace("/", "-")}.json");
+                await using FileStream fs = File.Create(path);
+               fs.Close();
+               await File.WriteAllTextAsync(path, Date.Value);
+            }
+        }
         
+        public static Dictionary<DateOnly, string> ReadFiles()
+        {
+            Dictionary<DateOnly, string> endResult = new();
+            string path = Path.Combine(Environment.CurrentDirectory, @"PolygonData");
+            string[] files = Directory.GetFiles(path);
+            foreach (string filename in files)
+            {
+                DateTime dt = DateTime.Parse(filename.Split("_")[1].Split(".")[0]);
+                //Console.WriteLine(filename.Split("_")[1].Split(".")[0]);
+                endResult.Add(DateOnly.FromDateTime(dt), File.ReadAllText(filename));
+            }
+            return endResult;
+        }
     }
 }

@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using NumSharp;
+using Tweetinvi.Core.Extensions;
 
 namespace NewsTwitterDPM
 {
@@ -16,6 +19,7 @@ namespace NewsTwitterDPM
         public string Article_url { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
+        public double Sentiment { get; set; }
 
         public NewsData(string ticker, string title, string articleUrl, string date, string time)
         {
@@ -25,10 +29,35 @@ namespace NewsTwitterDPM
             Date = date;
             Time = time;
         }
+        public NewsData(string ticker, string title, string articleUrl, string date, string time, double sentiment)
+        {
+            Ticker = ticker ?? throw new ArgumentNullException(nameof(ticker));
+            Title = title ?? throw new ArgumentNullException(nameof(title));
+            Article_url = articleUrl ?? throw new ArgumentNullException(nameof(articleUrl));
+            Date = date;
+            Time = time;
+            Sentiment = sentiment;
+        }
     }
+    public class ParseOnlyNewsData
+    {
+        public string[] TickerList { get; set; }
+        public string Title { get; set; }
+        public string Article_url { get; set; }
+        public string Date { get; set; }
+        public string Time { get; set; }
 
+        public ParseOnlyNewsData(string[] tickerlist, string title, string articleUrl, string date, string time)
+        {
+            TickerList = tickerlist ?? throw new ArgumentNullException(nameof(tickerlist));
+            Title = title ?? throw new ArgumentNullException(nameof(title));
+            Article_url = articleUrl ?? throw new ArgumentNullException(nameof(articleUrl));
+            Date = date;
+            Time = time;
+        }
+    }
     
-    // Historical is only 30 days
+    // Historical is only 15 days
     // The model only takes in the latest 14 days
     public static class HistoricalNewsData
     {
@@ -74,29 +103,31 @@ namespace NewsTwitterDPM
         public static async Task<Dictionary<string, string>> FirstNewsDataRequest(CancellationToken stoppingToken,
             ILogger logger)
         {
-            var Date = DateOnly.FromDateTime(DateTime.Now);
-            // Key in Dictionary is the name of the Ticker
+            // Key in Dictionary is the date
             // Value is responseBody
             Dictionary<string, string> historicalData = new();
             string responseBody = String.Empty;
             BasicParse newsParse = new();
             // Makes sure connection is closed and httpClient is disposed of.
             using HttpClient httpClient = new();
-            foreach (var stock in StockList.SList)
+            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).FullName, @"StockDPM", @"PolygonData");
+            string[] files = Directory.GetFiles(path);
+            foreach (var filename in files)
             {
-                if (Date.DayOfWeek == DayOfWeek.Saturday || Date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    Date = Date.AddDays(-1);
-                    continue;
-                }
+                string month = filename.Split("_")[1].Split("-")[0];
+                string day = filename.Split("_")[1].Split("-")[1];
+                if (day.Length == 1) { day = "0" + day; }
+                if (month.Length == 1) { month = "0" + month; }
                 // Formats date to proper format
-                string dateString = FormatDate(Date.AddDays(-DateTime.UtcNow.Day));
+                string date = filename.Split("_")[1].Split("-")[2].Split(".")[0] + "-" + month + "-" + day;
                 try
                 {
-                    // Takes in Data for the last N days to the first day of the month
+                    // Gets data from the same date as the stock data
                     string httpUrl =
-                        $"https://api.polygon.io/v2/reference/news?ticker={stock}&published_utc.gte={dateString}&limit=1000&apiKey=wfMvDI3LyIYWRUj0f7_kpLG1V_pmuy_w";
+                        $"https://api.polygon.io/v2/reference/news?published_utc={date}&limit=1000&apiKey=wfMvDI3LyIYWRUj0f7_kpLG1V_pmuy_w";
+                    Console.WriteLine(httpUrl);
                     responseBody = await httpClient.GetStringAsync(httpUrl, stoppingToken);
+                    Console.WriteLine(responseBody.Length);
                     // Since polygon.io doesn't give a mistake if you ask about data on a future date this statement makes sure that we get the right amount of data
                     if (newsParse.BasicNewsParseJson(responseBody) == 0)
                     {
@@ -108,18 +139,14 @@ namespace NewsTwitterDPM
                             logger.LogInformation("Error : {Error}", newsParse.RequestError);
                         }
 
-                        Date = Date.AddDays(-1);
                         await Task.Delay(12000, stoppingToken);
                         // If code goes in this block the continue statement will go to the next iteration
                         continue;
                     }
-
-                    // Adding these curly brackets only for clarity , THEY ARE NOT NECESSARY
                     
                         //Console.WriteLine(responseBody);
                         logger.LogInformation("Successfully received info at: {Time}", DateTimeOffset.UtcNow);
-                        historicalData.Add(stock, responseBody);
-                        Date = Date.AddDays(-1);
+                        historicalData.Add(date, responseBody);
                         await Task.Delay(12000, stoppingToken);
                     
                 }
@@ -128,15 +155,12 @@ namespace NewsTwitterDPM
                     logger.LogInformation("Caught exception: {Exception}", e.ToString());
                     await Task.Delay(12000, stoppingToken);
                 }
-                // TODO: REMOVE BEFORE PRODUCTION CODE
-                break;
             }
-            //Console.WriteLine("Bruh");
             return historicalData;
         }
-
+        
         public static async Task<Dictionary<string, string>> UpdateNewsData(CancellationToken stoppingToken,
-            ILogger logger, int nPast = 0)
+            ILogger logger = null, int nPast = 0)
         {
             // Today Date
             var Date = DateOnly.FromDateTime(DateTime.Now.AddDays(-nPast));
@@ -174,7 +198,7 @@ namespace NewsTwitterDPM
                         continue;
                     }
 
-                    Console.WriteLine(responseBody);
+                    //Console.WriteLine(responseBody);
                     logger.LogInformation("Successfully received info at: {Time}", DateTimeOffset.UtcNow);
                     historicalData.Add(stock, responseBody);
                     await Task.Delay(12000, stoppingToken);
@@ -184,10 +208,7 @@ namespace NewsTwitterDPM
                     logger.LogInformation("Caught exception: {Exception}", e.ToString());
                     await Task.Delay(12000, stoppingToken);
                 }
-                // TODO: Remove before commit
-                // TODO: REMOVE BEFORE PRODUCTION CODE
-                break;
-            }
+            }   
 
             // Return dictionary of size 1 which is basically a KeyValuePair, but since c# doesn't implicitly
             // convert Dictionary to KeyValuePair and overloading seams ineffective anyway, just returning a List with
@@ -198,31 +219,42 @@ namespace NewsTwitterDPM
         public static List<NewsData> ParseNewsRequest(Dictionary<string, string> responseBody, ILogger logger)
         {
             List<NewsData> endResult = new();
-            if (responseBody.Count == 0)
-            {
-                // Although possibly not the best solution takes care of any cases when there is an empty response(No result from the request)
-                // The above described case is usually impossible but since the API has some undefined responses I put it here to be on the safe side
-                // TODO: Find another solution instead of throwing exceptions
-                throw new ArgumentNullException(nameof(responseBody), $"{nameof(responseBody)} is empty");
-            }
+            List<List<ParseOnlyNewsData>> endTempResult = new();
             try
             {
                 foreach (KeyValuePair<string, string> elem in responseBody)
                 {
                     // Creates new stock instance and specifies the ticker
-                    // Line #Possible Null Related Exception
                     dynamic jsonData = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(elem.Value);
-                    List<Dictionary<string, JsonElement>> parsedData =
-                        JsonSerializer.Deserialize<List<Dictionary<string, JsonElement>>>(jsonData["results"]);
-                    endResult = parsedData.Select(stock => new NewsData(
-                        ticker: elem.Key,
+                    List<Dictionary<string, JsonElement>> parsedData = JsonSerializer.Deserialize<List<Dictionary<string, JsonElement>>>(jsonData["results"]);
+                    endTempResult.Add(parsedData.Select(stock => new ParseOnlyNewsData(
+                        tickerlist: Array.ConvertAll(stock["tickers"].EnumerateArray().ToArray(), title => title.GetString() ?? throw new NullReferenceException()),
                         title: stock["title"].GetString() ?? throw new InvalidOperationException(),
                         articleUrl: stock["article_url"].GetString() ?? throw new InvalidOperationException(),
                         //This should never be null so it's never a problem
                         date: stock["published_utc"].GetString().Split("T")[0] ?? throw new InvalidOperationException(),
                         time: stock["published_utc"].GetString().Split("T")[1] ?? throw new InvalidOperationException()
-                    )).ToList();
+                    )).ToList());
                 }
+                
+                var newTempList = endTempResult.SelectMany(x => x).ToList();
+                Console.WriteLine(newTempList.Count);
+                foreach (var tempresult in newTempList)
+                {
+                    foreach (var ticker in tempresult.TickerList)
+                    {
+                        if (StockList.SList.Contains(ticker))
+                        {
+                            endResult.Add(new NewsData(
+                                ticker: ticker,
+                                title: tempresult.Title,
+                                articleUrl: tempresult.Article_url,
+                                date: tempresult.Date,
+                                time: tempresult.Time));
+                        }
+                    }
+                }
+
             }
             catch (Exception e)
             {
@@ -232,22 +264,50 @@ namespace NewsTwitterDPM
             return endResult;
         }
 
-        public static void PrettyPrint(int ElemsToPrint, List<NewsData> Data)
+        public static async Task WriteToFile(Dictionary<string, string> response)
         {
-            if (Data.Count <= ElemsToPrint)
+            foreach (KeyValuePair<string, string> Date in response)
             {
-                for (int i = 1; i <= Data.Count; i++)
-                {
-                    Console.WriteLine(Data[i].Title);
-                }
+                string path = Path.Combine(Environment.CurrentDirectory, @"PolygonData", $"snd_{Date.Key}.json");
+                await using FileStream fs = File.Create(path);
+                fs.Close();
+                await File.WriteAllTextAsync(path, Date.Value);
             }
-            else
+        }
+
+        public static Dictionary<string, string> ReadFiles()
+        {
+            Dictionary<string, string> endResult = new();
+            string path = Path.Combine(Environment.CurrentDirectory, @"PolygonData");
+            string[] files = Directory.GetFiles(path);
+            foreach (string filename in files)
             {
-                for (int i = 0; i < ElemsToPrint; i++)
-                {
-                    Console.WriteLine(Data[i].Title);
-                }
+                //Console.WriteLine(filename.Split("_")[1].Split(".")[0]);
+                endResult.Add(filename.Split("_")[1].Split(".")[0], File.ReadAllText(filename));
             }
+            return endResult;
+        }
+
+        public static List<NewsData> Init()
+        {
+            var allData = HistoricalNewsData.ReadFiles();
+            Console.WriteLine(allData.Keys.Count);
+            var ParsedData = HistoricalNewsData.ParseNewsRequest(allData, null);
+            var y = ParsedData.Select(data => data.Title).ToList();
+            var xNdArray =
+                np.load("/home/martin/RiderProjects/Lexonic/NewsTwitterDPM/SentimentNPYs/CurrentNewsSentiment.npy");
+
+            for (int i = 0; i < (xNdArray.Shape[0] & ParsedData.Count); i++)
+            {
+                ParsedData[i].Sentiment = xNdArray.ToArray<double>()[i];
+            }
+            NewsTwitterTableOps.CreateNewsTable();
+            foreach (var newsData in ParsedData)
+            {
+                NewsTwitterTableOps.InsertIntoNewsTable(newsData);
+                //Console.WriteLine(newsData.Date);
+            }
+            return ParsedData;
         }
     }
 }
