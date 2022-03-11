@@ -20,7 +20,8 @@ namespace NewsTwitterDPM
         public string Date { get; set; }
         public string Time { get; set; }
         public double Sentiment { get; set; }
-
+        //Default constructor
+        public NewsData(){}
         public NewsData(string ticker, string title, string articleUrl, string date, string time)
         {
             Ticker = ticker ?? throw new ArgumentNullException(nameof(ticker));
