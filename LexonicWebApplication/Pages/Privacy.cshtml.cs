@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FinancialsDPM;
 using FinancialsDPM.FinancialsDPM;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using FinancialsDPM.FinancialsDPM.FinancialsDPM;
 using NewsTwitterDPM;
+using StockDPM;
+using System.Globalization;
 using StockList = FinancialsDPM.StockList;
 
 
@@ -24,7 +27,22 @@ namespace LexonicWebApplication.Pages
 
         [BindProperty(SupportsGet = true)]
         public string ValueToPass {get; set;}
-/*
+
+        public List<StockData> stockData = DummyData.infoForChart();
+
+        public CompanyOverview overview = DummyData.getCompanyOverview("GOOGL");
+
+        public BalanceSheet balanceSheet = DummyData.getBalanceSheet("GOOGL");
+
+        public Earnings earnings = DummyData.getEarnings("GOOGL");
+
+        public CashFlow cashFlow = DummyData.getCashFlow("GOOGL");
+
+        public IncomeStatement IncomeStatement = DummyData.getIncomeStatement("GOOGL");
+        
+        //TODO: Fix the way the date is shown 
+        public DateTime date = DateTime.UtcNow.Date;
+/* 
         public double OurPrice { get; set; }
 
         public BalanceSheet balanceSheet { get; set; }

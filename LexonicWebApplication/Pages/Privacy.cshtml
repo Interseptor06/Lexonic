@@ -5,6 +5,65 @@
 }
 <!--<h1>@ViewData["Title"]</h1>-->
 
+<head>
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+              google.charts.load('current', {'packages':['corechart']});
+              google.charts.setOnLoadCallback(drawChart);
+            
+              
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['@Model.date.AddDays(-13).ToString("d")', @Model.stockData[0].Low, @Model.stockData[0].Open, @Model.stockData[0].Close, @Model.stockData[0].High],
+              ['@Model.date.AddDays(-12).ToString("d")', @Model.stockData[1].Low, @Model.stockData[1].Open, @Model.stockData[1].Close, @Model.stockData[1].High],
+              ['@Model.date.AddDays(-11).ToString("d")', @Model.stockData[2].Low, @Model.stockData[2].Open, @Model.stockData[2].Close, @Model.stockData[2].High],
+              ['@Model.date.AddDays(-10).ToString("d")', @Model.stockData[3].Low, @Model.stockData[3].Open, @Model.stockData[3].Close, @Model.stockData[3].High],
+              ['@Model.date.AddDays(-9).ToString("d")', @Model.stockData[4].Low, @Model.stockData[4].Open, @Model.stockData[4].Close, @Model.stockData[4].High],
+              ['@Model.date.AddDays(-8).ToString("d")', @Model.stockData[5].Low, @Model.stockData[5].Open, @Model.stockData[5].Close, @Model.stockData[5].High],
+              ['@Model.date.AddDays(-7).ToString("d")', @Model.stockData[6].Low, @Model.stockData[6].Open, @Model.stockData[6].Close, @Model.stockData[6].High],
+              ['@Model.date.AddDays(-6).ToString("d")', @Model.stockData[7].Low, @Model.stockData[7].Open, @Model.stockData[7].Close, @Model.stockData[7].High],
+              ['@Model.date.AddDays(-5).ToString("d")', @Model.stockData[8].Low, @Model.stockData[8].Open, @Model.stockData[8].Close, @Model.stockData[8].High],
+              ['@Model.date.AddDays(-4).ToString("d")', @Model.stockData[9].Low, @Model.stockData[9].Open, @Model.stockData[9].Close, @Model.stockData[9].High],
+              ['@Model.date.AddDays(-3).ToString("d")', @Model.stockData[10].Low, @Model.stockData[10].Open, @Model.stockData[10].Close, @Model.stockData[10].High],
+              ['@Model.date.AddDays(-2).ToString("d")', @Model.stockData[11].Low, @Model.stockData[11].Open, @Model.stockData[11].Close, @Model.stockData[11].High],
+              ['@Model.date.AddDays(-1).ToString("d")', @Model.stockData[12].Low, @Model.stockData[12].Open, @Model.stockData[12].Close, @Model.stockData[12].High],
+              ['@Model.date',  @Model.stockData[13].Low, @Model.stockData[13].Open, @Model.stockData[13].Close, @Model.stockData[13].High]
+              // Treat first row as data as well.
+            ], true);
+            
+            var options = {
+              legend:'none',
+              backgroundColor: "#2d3436",
+              candlestick:{
+                  risingColor: {stroke: '#419c8b', fill: '#57e1c0'},
+                  fallingColor: {stroke: '#d05991', fill: '#fc4291'}
+              },
+              hAxis:{
+                  textStyle:{
+                      color: "white",
+                  },      
+                  titleTextStyle:{                  
+                      color: "white"                
+                  }
+              },
+              colors: ["white"],
+              vAxis: {
+                  textStyle:{
+                                    color: "white",
+                                },      
+                                titleTextStyle:{                  
+                                    color: "white"                
+                                }
+              }
+            };
+        
+            var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+        
+            chart.draw(data, options);
+          }
+            </script>
+</head>
+
 <style>
     body{
     background: #00232E;
@@ -40,13 +99,13 @@
     .marquee{
         box-shadow: 0 16px 32px -2px rgba(0,0,0,0.25);
         background-color: black;
-        margin-left: -500px;
+        margin-left: -1000px;
         margin-top: -32px;
         padding: 0;
         overflow: hidden;
         width: 5000px;
-        height: 32px;
-        line-height: 50px;
+        height: 2em;
+        line-height: 2em;
     }
     .marquee span{
         position: relative;
@@ -54,8 +113,8 @@
         overflow: visible;
         white-space: nowrap;
         font-size: 20px;
-        height: 25px;
-        line-height: 25px;
+        height: 2em;
+        line-height: 2em;
     }
     .marquee span::before{
         position: absolute;
@@ -82,6 +141,20 @@
         margin-left: -250px;
         margin-right: -260px;;
     }
+    
+    .lowerDiv{
+        display: flex;
+        background-color: #212529;
+        padding: 10px;
+        margin-left: -250px;
+        margin-right: -260px;;
+        background-color: #212529;
+        padding: 10px;
+        }
+       
+    .lowerDiv :first-child {
+            width: 80%;
+          }
     
     .flex-child {
         flex: 1;
@@ -111,6 +184,9 @@
     <span>
         $GOOGL -3.4 | $TSLA +0.1 | $AAPL +0.1 | $SBUX +6.2 | DOW J -103 | S&P 500 -1069 |
     </span>
+    <span>
+        $GOOGL -3.4 | $TSLA +0.1 | $AAPL +0.1 | $SBUX +6.2 | DOW J -103 | S&P 500 -1069 |
+        </span>
     
 
 </div>
@@ -135,33 +211,89 @@
     </script>
 
 <div style="text-align: center;">
-    <p style="margin-top: 40px; font-size: 30px; margin-bottom: 20px">$ @Model.ValueToPass (Da izmislim nachin da pokazvame akciqta tuk bez da e grozno)</p>
+    <p style="margin-top: 40px; font-size: 30px; margin-bottom: 20px">$@Model.ValueToPass</p>
 </div>
 
 
 <!-- TRQBVA DA SE OPRAVI CVETA NA HR -->
 
 
-<hr style="width: 2000px; margin-left: -400px; background-color: #212529; height: 8px">
+<hr style="width: 5000px; margin-left: -1000px; background-color: #576574; height: 8px">
 
 
 <!-- TRQBVA DA SE OPRAVI CVETA NA HR -->
 
 
-
-<div class="chartAndFirst">
-    <div class="flex-child">
-        <div id="chart_div" style="width: 1200px; height: 500px;"></div>
+<div style="background-color: #2d3436">
+    <div class="chartAndFirst">
+        <div class="flex-child">
+            <div id="chart_div" style="width: 1200px; height: 500px;"></div>
+        </div>
+        <div class="flex-child">
+            <h2>Our Prediction</h2>
+            <h4 style="color: #57e1c0; margin-bottom: 2em"> +0.9</h4> 
+            <h2>Analysts' Prediction</h2>
+            <h4 style="color: #57e1c0; margin-bottom: 2em"> +0.6</h4> 
+            <h2>News Sentiment</h2>
+            <h4 style="color: #8395a7; margin-bottom: 2em">Neutral</h4> 
+            <h2>Twitter Sentiment</h2>
+            <h4 style="color: #57e1c0; margin-bottom: 2em">Mostly Positive</h4> 
+        </div>
     </div>
-    <div class="flex-child">
-        <p>test
-    </div>
-</div>
+    
+    <div align="left" id="" class="lowerDiv" style="margin-top: 15px; padding:  1em; color:#c8d6e5; background-color:#212529" >
+        <div class="flex-child" style="background-color:#212529; padding: 1.5em">
+            <div>
+                <h4 style="color: #8395a7">Desciription</h4>
+                <p style="align-items: center; margin: 1.5em">@Model.overview.Description</p>
+            </div>   
+            <div>
+                <h4 style="color: #8395a7; margin-top: 2em">Sector</h4>
+                <p style="align-items: center; margin: 1.5em">@Model.overview.Sector</p>
+            </div>
+            <div>
+                <h4 style="color: #8395a7; margin-top: 2em">Industry</h4>
+                <p style="align-items: center; margin: 1.5em">@Model.overview.Industry</p>
+            </div>
 
-<div class="chartAndFirst" style="margin-top: 15px">
-    <p> test
-    <p> test
-    <p> test
+        <div>
+            <h4 style="color: #8395a7; margin-top: 2em">Overview</h4>
+            <p style="align-items: center; margin: 1.5em">Divident yield : @Model.overview.DividendYield</p>
+            <p style="align-items: center; margin: 1.5em">Market cap. : @Model.overview.MarketCapitalization</p>
+            <p style="align-items: center; margin: 1.5em">52wk. high : @Model.overview.FiftyTwoWeekHigh</p>
+            <p style="align-items: center; margin: 1.5em">52wk. low : @Model.overview.FiftyTwoWeekLow</p>
+            <p style="align-items: center; margin: 1.5em">PE ratio : @Model.overview.PERatio</p>
+        </div> 
+            <div>
+                <h4 style="color: #8395a7; margin-top: 2em">Earnings</h4>
+                <p style="align-items: center; margin: 1.5em">Reported EPS : @Model.earnings.ReportedEPS</p>
+            </div>  
+            
+        </div>
+        <div class="flex-child" style="background-color:#212529;">
+            <div style="background-color: #2d3436; padding:2em; width: 100%">
+                <h2 align="center" style="margin: 1em; color: #8395a7">News</h2>
+                <p align="left">Meanwhile, GOOGL stock jumped 65% in 2021. Thus far in 2022, shares have dipped 7%. Google stock shot up on its fourth-quarter earnings report.</p>
+                <p style="margin-top: 30px">Despite being one of the most popular stocks among investors, $GOOGL is the most underpriced stock in the current market by analysts!</p>
+                <p style="margin-top: 30px">Google became even bigger! The tech giant bought yet another uprising social media.</p>
+            </div>
+            <div>
+                <h4 style="color: #8395a7; margin-top: 2em">Cash Flow</h4>
+                <p style="align-items: center; margin: 1.5em">Operating cash flow : @Model.cashFlow.operatingCashflow</p>
+                <p style="align-items: center; margin: 1.5em">Change in exchange : @Model.cashFlow.changeInExchangeRate</p>
+                <p style="align-items: center; margin: 1.5em">Divident payout : @Model.cashFlow.dividendPayout</p>
+                <p style="align-items: center; margin: 1.5em">Profit loss : @Model.cashFlow.profitLoss</p>
+            </div>
+            <div>
+                <h4 style="color: #8395a7; margin-top: 2em">Income Statement</h4>
+                <p style="align-items: center; margin: 1.5em">Depreciation : @Model.IncomeStatement.depreciation</p>
+                <p style="align-items: center; margin: 1.5em">Gross profit : @Model.IncomeStatement.grossProfit</p>
+                <p style="align-items: center; margin: 1.5em">Net income : @Model.IncomeStatement.netIncome</p>
+                <p style="align-items: center; margin: 1.5em">Total revenue : @Model.IncomeStatement.totalRevenue</p>
+                <p style="align-items: center; margin: 1.5em">Net interest income : @Model.IncomeStatement.netInterestIncome</p>
+                </div>  
+            </div>
+    </div>
 </div>
 <!--
 <table>
