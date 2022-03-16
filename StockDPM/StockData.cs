@@ -8,6 +8,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
+using NewsTwitterDPM;
+using NumSharp;
 
 namespace StockDPM
 {
@@ -28,8 +30,12 @@ namespace StockDPM
     {
         // Had to create new method for the same thing as in NewsData.cs because the key is different
         
-
-        // TODO: Add commentary before I forget how the fuck this method works
+        /// <summary>
+        /// Processes raw data
+        /// </summary>
+        /// <param name="responseBody"></param>
+        /// <param name="logger"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public static Dictionary<DateOnly, List<StockData>> ProcessStockData(Dictionary<DateOnly, string> responseBody, ILogger logger)
         {
             Dictionary<DateOnly, List<StockData>> globalHistoricData = new();
@@ -68,7 +74,6 @@ namespace StockDPM
             {
                 logger.LogInformation("Exception thrown : {Exception}", e.ToString());
             }
-            // TODO: Check if it's ok to return things like this
             return globalHistoricData;
         }
 
@@ -153,7 +158,12 @@ namespace StockDPM
 
             return historicalData;
         }
-        
+        /// <summary>
+        /// Nearly same as above method, just recreated for updating, instead of getting data for last N days
+        /// </summary>
+        /// <param name="stoppingToken"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
         public static async Task<Dictionary<DateOnly, string>> UpdateStockData(CancellationToken stoppingToken, ILogger logger)
         {
             Dictionary<DateOnly, string> historicalData = new();
@@ -194,6 +204,10 @@ namespace StockDPM
             return historicalData;
         }
 
+        /// <summary>
+        /// Utility method for file-based method
+        /// </summary>
+        /// <param name="response"></param>
         public static async Task WriteToFile(Dictionary<DateOnly,string> response)
         {
             foreach (KeyValuePair<DateOnly, string> Date in response)
@@ -205,6 +219,9 @@ namespace StockDPM
             }
         }
         
+        /// <summary>
+        /// Utility method for file-based method
+        /// </summary>
         public static Dictionary<DateOnly, string> ReadFiles()
         {
             Dictionary<DateOnly, string> endResult = new();
@@ -217,6 +234,195 @@ namespace StockDPM
                 endResult.Add(DateOnly.FromDateTime(dt), File.ReadAllText(filename));
             }
             return endResult;
+        }
+        /// <summary>
+        /// Inits data for stock prediction using ML model
+        /// </summary>
+        public static (NDArray, NDArray) InitAllData()
+        {
+            // Using Apple since they are a popular enough stock to avoid API-level errors
+            var keyList = StockTableOps.SelectHistoricData("AAPL").OrderBy(x => x.Date).Select(x => x.Date).ToList();
+            //keyList.ForEach(x => Console.WriteLine(x));
+            List<List<List<double>>> stList = new();
+            int counter = 0;
+            foreach (var stock in StockList.SList)
+            {
+                var stockTempList = StockTableOps.SelectHistoricData(stock);
+                if (stockTempList.Count < 15)
+                {
+                    foreach (var dateDiff in keyList.Except(stockTempList.Select(x=>x.Date).ToList()))
+                    {
+                        stockTempList.Add(new StockData()
+                        {
+                            Close = 0,
+                            Date = dateDiff,
+                            High = 0,
+                            Low = 0,
+                            NumberOfTransactions = 0, 
+                            Open = 0,
+                            Ticker = stock,
+                            Volume = 0
+                        });
+                    }
+                }
+                stList.Add(new List<List<double>>());
+                foreach (var elem in stockTempList)
+                {
+                    stList[counter].Add(new List<double>(){
+                        double.Parse(elem.Open.ToString()),
+                        double.Parse(elem.High.ToString()),
+                        double.Parse(elem.Low.ToString()),
+                        double.Parse(elem.Close.ToString()),
+                        elem.Volume});
+                }
+                counter++;
+            }
+
+
+            List<List<List<double>>> nList = new();
+            foreach (var stock in StockList.SList)
+            {
+                var NewsTempList = NewsTwitterTableOps.SelectFromNewsTable(stock);
+                var groupedData = NewsTempList.OrderBy(x => x.Date).GroupBy(x => x.Date).ToList();
+                var currentKeys = groupedData.Select(x => x.Key).ToList();
+                List<List<NewsData>> fullList = new();
+                foreach (var group in groupedData)
+                {
+                    var tempList = group.ToList();
+                    while (tempList.Count < 25)
+                    {
+                        tempList.Add(new NewsData()
+                        {
+                            Title = String.Empty,
+                            Date = group.Key,
+                            Article_url = String.Empty,
+                            Time = String.Empty,
+                            Sentiment = 0,
+                            Ticker = stock
+                        });
+                    }
+
+                    // Truncation: 
+                    if (tempList.Count > 25)
+                    {
+                        tempList = tempList.GetRange(0, 25);
+                    }
+                    fullList.Add(tempList);
+                }
+
+                foreach (var dateDiff in keyList.Except(currentKeys))
+                {
+                    var tempList = new List<NewsData>();
+                    while (tempList.Count < 25)
+                    {
+                        tempList.Add(new NewsData()
+                        {
+                            Title = String.Empty,
+                            Date = dateDiff,
+                            Article_url = String.Empty,
+                            Time = String.Empty,
+                            Sentiment = 0,
+                            Ticker = stock
+                        });
+                    }
+                    fullList.Add(tempList);
+                }
+                fullList = fullList.OrderBy(x => x[0].Date).ToList();
+                nList.Add(fullList.Select(a => a.Select(x => x.Sentiment).ToList()).ToList());
+
+            }
+            
+            double[,,] ExchangeNews_X = new double[500, 15, 25];
+            for (int i = 0; i < nList.Count; i++)
+            {
+                for (int j = 0; j < nList[0].Count; j++)
+                {
+                    for (int l = 0; l < nList[0][0].Count; l++)
+                    {
+                        ExchangeNews_X[i, j, l] = nList[i][j][l];
+                    }
+                }
+            }
+            double[,,] ExchangeStockData_X = new double[500, 15, 5];
+            for (int i = 0; i < stList.Count; i++)
+            {
+                for (int j = 0; j < stList[0].Count; j++)
+                {
+                    for (int l = 0; l < stList[0][0].Count; l++)
+                    {
+                        ExchangeStockData_X[i, j, l] = stList[i][j][l];
+                    }
+                }
+            }
+            NDArray exchangeNewsX = ExchangeNews_X;
+            NDArray exchangeStockDataX = ExchangeStockData_X;
+            return (exchangeStockDataX, exchangeNewsX);
+        }
+        /// <summary>
+        /// Inits prediction data
+        /// </summary>
+        public static void InitPredictionData()
+        {
+            StockTableOps.CreatePredictionDataTable();
+            var x = np.load("/home/martin/RiderProjects/Lexonic/StockDPM/NPYs/EndAll.npy");
+            var Date = DateTime.Parse(Directory.GetFiles("/home/martin/RiderProjects/Lexonic/StockDPM/PolygonData").OrderByDescending(x => x)
+                .ToList()[0].Split("_")[1].Split(".")[0]);
+            Console.WriteLine(Date);
+            for (int i = 0; i < 500; i++)
+            {
+                StockTableOps.InsertPredictionDataTable(StockList.SList[i],Date, x.ToArray<float>()[i]);
+            }
+        }
+
+        /// <summary>
+        /// Benchmark for model results
+        /// </summary>
+        public static void TestModel()
+        {
+            var T_Data = File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/StockDPM/TestingData/TestTomorrowData.json");
+            var N_Data = File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/StockDPM/PolygonData/sta_3-8-2022.json");
+            var processedT_Data = ProcessStockData(new Dictionary<DateOnly, string>() {{DateOnly.FromDateTime(DateTime.Now), T_Data}}, null).First().Value.ToList();
+            var processedN_Data = ProcessStockData(new Dictionary<DateOnly, string>() {{DateOnly.FromDateTime(DateTime.Now.AddDays(-1)), N_Data}}, null).First().Value.ToList();
+            var predictionData = StockTableOps.SelectPredictionData();
+            var dic = StockList.SList.Zip(predictionData, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
+            double profit = 0;
+            foreach (string stock in StockList.SList)
+            {
+                if (processedT_Data.Where(x => x.Ticker == stock).ToList().Count == 0 ||
+                    processedN_Data.Where(x => x.Ticker == stock).ToList().Count == 0)
+                {
+                    continue;
+                }
+                var currentTData = processedT_Data.Where(x => x.Ticker == stock).ToList()[0];
+                var currentNData = processedN_Data.Where(x => x.Ticker == stock).ToList()[0];
+                var tempDiff = currentTData.Close - currentNData.Close;
+                if (dic[stock] == "Hold")
+                {
+                    profit += 50 * decimal.ToDouble(tempDiff);
+                }
+                else if (dic[stock] == "Buy")
+                {
+                    profit += 100 * decimal.ToDouble(tempDiff);
+                }
+                else
+                {
+                    profit += 50 * decimal.ToDouble(tempDiff) * -1;
+                }
+                Console.WriteLine(tempDiff);
+                Console.WriteLine(profit);
+            }
+            Console.WriteLine(profit);
+        }
+
+        public static void InitDataAndWriteToDb()
+        {
+            StockTableOps.CreateHistoricStockTable();
+            var Data = ReadFiles();
+            var ProcessedData = ProcessStockData(Data, null);
+            var StockLists = ProcessedData.Values.SelectMany(x => x).ToList();
+            StockTableOps.BulkInsertHistoricStockTable(StockLists);
+            // Init Prediction Data - Already Written Method to be DRY
+            InitPredictionData();
         }
     }
 }

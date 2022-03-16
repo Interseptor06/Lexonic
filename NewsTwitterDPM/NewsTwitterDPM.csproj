@@ -19,6 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="PolygonData" />
+      <Folder Include="PolygonNewsData" />
     </ItemGroup>
 </Project>

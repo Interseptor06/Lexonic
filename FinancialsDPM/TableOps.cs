@@ -10,6 +10,10 @@ namespace FinancialsDPM
 
     public class FinancialsTableOps
     {
+        /// <summary>
+        /// Table Initialization
+        /// Possible repeat of method in GetData
+        /// </summary>
         public static void CreateTables()
         {
             CreateEarningsTable();
@@ -18,6 +22,10 @@ namespace FinancialsDPM
             CreateCompanyOverviewTable();
             CreateIncomeStatementTable();
         }
+        /// <summary>
+        /// Next Five Methods are for table creation and are relatively straightforward
+        /// They take the sql query from the dedicated file and execute using built in .NET SQL libraries 
+        /// </summary>
         public static void CreateBalanceSheetTable()
         {
             string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateBalanceSheetTable.sql");
@@ -102,6 +110,10 @@ namespace FinancialsDPM
     
     public class FinancialsUpdateTables
     {
+        /// <summary>
+        /// Next Five Methods are for table updating, since we won't be keeping historic data, and are relatively straightforward
+        /// They take the sql query from the dedicated file and execute using built in .NET SQL libraries 
+        /// </summary>
         public static void UpdateBalanceSheetTable(BalanceSheet bData)
         {
             string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "UpdateBalanceSheetTable.sql");
@@ -333,6 +345,10 @@ namespace FinancialsDPM
     
     public static class FinancialsSelectData
     {
+        /// <summary>
+        /// Next Five Methods are for table selecting and are relatively straightforward
+        /// They take the sql query, execute and then read the result using built in .NET SQL libraries 
+        /// </summary>   
         public static BalanceSheet SelectBalanceSheetData(string ticker)
         {
             BalanceSheet returnData = new(ticker);

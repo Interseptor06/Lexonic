@@ -9,6 +9,10 @@ using Microsoft.Extensions.Logging;
 
 namespace FinancialsDPM
 {
+    /// <summary>
+    /// Constructor is mainly for Null Exception Safety.
+    /// Class is for data encapsulation.
+    /// </summary>
     public class CashFlow
     {
         public string Ticker;
@@ -131,7 +135,13 @@ namespace FinancialsDPM
     public static class GetCashFlowData
     {
         private static string api_key = "47BGPYJPFN4CEC20";
-
+        /// <summary>
+        /// Requests data for each ticker in StockList.SList
+        /// </summary>
+        /// <param name="ilogger"></param>
+        /// <param name="stoppingToken"></param>
+        /// <param name="toBreak"></param>
+        /// <returns> List of API responses </returns>
         public static async Task<List<string>> CashFlowDataRequest(ILogger ilogger, CancellationToken stoppingToken, bool toBreak=false)
         {
             List<string> cashFlows = new();
@@ -164,7 +174,12 @@ namespace FinancialsDPM
 
             return cashFlows;
         }
-
+        /// <summary>
+        /// Processes the above gotten data.
+        /// </summary>
+        /// <param name="dList"></param>
+        /// <returns>List of CashFlow Classes for each stock in StockList.SList</returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public static List<CashFlow> ProcessCashFlowData(List<string> dList)
         {
             List<CashFlow> parsedData = new();

@@ -10,6 +10,11 @@ namespace StockDPM
     
     public static class StockTableOps
     {
+        /// <summary>
+        /// Relatively self-explanatory
+        /// SQL utility methods for Table creation, selection and insertion
+        /// Both for Historical stock table and Prediction Table
+        /// </summary>
 
         public static void CreateHistoricStockTable()
         {
@@ -65,7 +70,7 @@ namespace StockDPM
             }
         }
 
-        public static void InsertPredictionDataTable(string _ticker, string _date, decimal _prediction)
+        public static void InsertPredictionDataTable(string _ticker, DateTime _date, float _prediction)
         {
             string script =
                 File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/StockDPM/SqlQueries/InsertPrediction.sql");
@@ -78,7 +83,7 @@ namespace StockDPM
                 SqlCommand command = new SqlCommand(script, connection);
                 command.Parameters.AddWithValue("@_Ticker", _ticker);
                 command.Parameters.AddWithValue("@_DateAdded", _date);
-                command.Parameters.AddWithValue("@_Open", _prediction);
+                command.Parameters.AddWithValue("@_Prediction", _prediction);
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -131,6 +136,42 @@ namespace StockDPM
                         NumberOfTransactions = Int64.Parse(oReader["NumOfTransacts"].ToString()),
                         Date = oReader["DateAdded"].ToString()
                     });
+
+                }
+            }
+            return returnData;
+        }
+        public static List<string> SelectPredictionData()
+        {
+            List<string> returnData = new();
+            string script = "select * from [dbo].[StockPredictiontable]";
+            string connectionString =
+                "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand command = new SqlCommand(script, connection);
+            
+            connection.Open();
+            
+            using (SqlDataReader oReader = command.ExecuteReader())
+            {
+                while (oReader.Read())
+                {
+                    string TempStr = "Hold";
+                    if (float.Parse(oReader["Prediction"].ToString()) == 0)
+                    {
+                        TempStr = "Hold";
+                    }
+                    else if (float.Parse(oReader["Prediction"].ToString()) > 0)
+                    {
+                        TempStr = "Buy";
+                    }
+                    else
+                    {
+                        TempStr = "Sell";
+                    }
+                    
+                    returnData.Add(TempStr);
 
                 }
             }

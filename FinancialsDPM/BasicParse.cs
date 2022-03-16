@@ -4,6 +4,9 @@ using System.Text.Json;
 
 namespace FinancialsDPM
 {
+    /// <summary>
+    /// Used to assure data processing method, that the response from the API isn't garbage.
+    /// </summary>
     public class BasicParse
     {
         public string? RequestError;

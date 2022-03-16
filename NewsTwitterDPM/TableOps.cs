@@ -9,6 +9,10 @@ namespace NewsTwitterDPM
 
     public class NewsTwitterTableOps
     {
+        /// <summary>
+        /// SQL utilities with self explanatory names and code
+        /// One is for Creation of the table, The other is for Insertion and the last is for Selecting Data
+        /// </summary>
 
         public static void CreateNewsTable()
         {

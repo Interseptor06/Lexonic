@@ -1,17 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+
 namespace FinancialsDPM
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Net.Http;
-    using System.Runtime.CompilerServices;
-    using System.Text.Json;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
+
 
 
     namespace FinancialsDPM
     {
+        /// <summary>
+        /// Constructor is mainly for Null Exception Safety.
+        /// Class is for data encapsulation.
+        /// </summary>
         public class BalanceSheet
         {
             public string Ticker;
@@ -147,7 +153,13 @@ namespace FinancialsDPM
         public static class GetBalanceSheetData
         {
             private static string api_key = "47BGPYJPFN4CEC20";
-
+            /// <summary>
+            /// Requests data for each ticker in StockList.SList
+            /// </summary>
+            /// <param name="ilogger"></param>
+            /// <param name="stoppingToken"></param>
+            /// <param name="toBreak"></param>
+            /// <returns> List of API responses </returns>
             public static async Task<List<string>> BalanceSheetRequest(ILogger ilogger, CancellationToken stoppingToken, bool toBreak=false)
             {
                 List<string> BalanceSheets = new();
@@ -178,7 +190,12 @@ namespace FinancialsDPM
 
                 return BalanceSheets;
             }
-
+            /// <summary>
+            /// Processes the above gotten data.
+            /// </summary>
+            /// <param name="dList"></param>
+            /// <returns>List of BalanceSheet Classes for each stock in StockList.SList</returns>
+            /// <exception cref="InvalidOperationException"></exception>
             public static List<BalanceSheet> ProcessBalanceSheetData(List<string> dList)
             {
                 List<BalanceSheet> parsedData = new();

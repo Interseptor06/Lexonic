@@ -7,6 +7,10 @@ namespace NewsTwitterDPM
 {
     public static class GetSentiment
     {
+        /// <summary>
+        /// Both methods are analogous, they take sentences from the standard input, make a prediction and write to a .npy file
+        /// </summary>
+        /// <returns>Both methods return values are never used, since they write the result to a .npy file</returns>
         public static string RunFinBertCmd(List<string> ArticleTitles)
         {
             string path = Path.Combine(Environment.CurrentDirectory, @"PythonFiles", "FinBertTest.py");

@@ -8,4 +8,9 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\NewsTwitterDPM\NewsTwitterDPM.csproj" />
+      <ProjectReference Include="..\StockDPM\StockDPM.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -10,8 +10,11 @@ using FinancialsDPM.FinancialsDPM.FinancialsDPM;
 using NewsTwitterDPM;
 using StockDPM;
 using System.Globalization;
+using System.IO;
+using System.Threading;
+using NumSharp;
 using StockList = FinancialsDPM.StockList;
-
+using SO=System.IO.File;
 
 namespace LexonicWebApplication.Pages
 {
@@ -28,44 +31,47 @@ namespace LexonicWebApplication.Pages
         [BindProperty(SupportsGet = true)]
         public string ValueToPass {get; set;}
 
-        public List<StockData> stockData = DummyData.infoForChart();
+        public List<StockData> stockData = new List<StockData>();
 
-        public CompanyOverview overview = DummyData.getCompanyOverview("GOOGL");
+        public CompanyOverview overview = new("");
+        public List<NewsData> NewsDatas { get; set; }
+        public string Sentiment { get; set; }
+        public string Prediction { get; set; }
 
-        public BalanceSheet balanceSheet = DummyData.getBalanceSheet("GOOGL");
-
-        public Earnings earnings = DummyData.getEarnings("GOOGL");
-
-        public CashFlow cashFlow = DummyData.getCashFlow("GOOGL");
-
-        public IncomeStatement IncomeStatement = DummyData.getIncomeStatement("GOOGL");
-        
         //TODO: Fix the way the date is shown 
         public DateTime date = DateTime.UtcNow.Date;
-/* 
-        public double OurPrice { get; set; }
-
-        public BalanceSheet balanceSheet { get; set; }
-        public CashFlow cashFlow { get; set; }
-        public CompanyOverview companyOverview{ get; set; }
-        public Earnings earnings { get; set; }
-        public IncomeStatement incomeStatement { get; set; }
         
-        public List<NewsData> NewsDatas { get; set; }
         
+        
+        //overview = FinancialsSelectData.SelectCompanyOverviewData(ValueToPass);
         public void OnGet()
         {
-            balanceSheet = FinancialsSelectData.SelectBalanceSheetData(StockList.SList[0]);
-            cashFlow = FinancialsSelectData.SelectCashFlowData(StockList.SList[0]);
-            companyOverview = FinancialsSelectData.SelectCompanyOverviewData(StockList.SList[0]);
-            earnings = FinancialsSelectData.SelectEarningsData(StockList.SList[0]);
-            incomeStatement = FinancialsSelectData.SelectIncomeStatementData(StockList.SList[0]);
-
-            NewsDatas = NewsTwitterTableOps.SelectFromNewsTable(StockList.SList[0]);
-
-            OurPrice = double.Parse(companyOverview.AnalystTargetPrice)- 2.176;
-
+            NewsDatas = NewsTwitterTableOps.SelectFromNewsTable(ValueToPass);
+            overview = FinancialsSelectData.SelectCompanyOverviewData(ValueToPass);
+            stockData = StockTableOps.SelectHistoricData(ValueToPass).OrderByDescending(x => x.Date).ToList();
+            int index = FinancialsDPM.StockList.SList.IndexOf(ValueToPass);
+            Prediction = StockTableOps.SelectPredictionData()[index];
+            if (NewsTwitterTableOps.SelectFromNewsTable(ValueToPass).Select(x => x.Sentiment).Average() < 0.5 & NewsTwitterTableOps.SelectFromNewsTable(ValueToPass).Select(x => x.Sentiment).Average() > -0.5)
+            {
+                Sentiment = "Neutral";
+                
+            }
+            else if (NewsTwitterTableOps.SelectFromNewsTable(ValueToPass).Select(x => x.Sentiment).Average() > 0.5)
+            {
+                Sentiment = "Positive";
+            
+            }
+            else
+            {
+                Sentiment = "Negative";
+                
+            }
         }
-        */
+        
     }
 }
+
+
+
+
+

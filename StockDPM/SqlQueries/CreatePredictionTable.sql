@@ -7,5 +7,5 @@ IF (EXISTS (SELECT *
 CREATE TABLE dbo.StockPredictionTable(
         [Ticker] varchar(10),
         [DateAdded] date,
-        [Prediction] money
+        [Prediction] float
 );

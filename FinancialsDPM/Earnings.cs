@@ -1,19 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+
 namespace FinancialsDPM
 {
     namespace FinancialsDPM
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Net.Http;
-    using System.Runtime.CompilerServices;
-    using System.Text.Json;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
+
 
 
     namespace FinancialsDPM
     {
+        /// <summary>
+        /// Constructor is mainly for Null Exception Safety.
+        /// Class is for data encapsulation.
+        /// </summary>
         public class Earnings
         {
             public string Ticker;
@@ -36,7 +42,13 @@ namespace FinancialsDPM
         public static class GetEarningsData
         {
             private static string api_key = "47BGPYJPFN4CEC20";
-
+            /// <summary>
+            /// Requests data for each ticker in StockList.SList
+            /// </summary>
+            /// <param name="ilogger"></param>
+            /// <param name="stoppingToken"></param>
+            /// <param name="toBreak"></param>
+            /// <returns> List of API responses </returns>
             public static async Task<List<string>> EarningsRequest(ILogger ilogger, CancellationToken stoppingToken, bool toBreak=false)
             {
                 List<string> Earnings = new();
@@ -70,8 +82,13 @@ namespace FinancialsDPM
 
                 return Earnings;
             }
-
-            public static List<Earnings> ProcessBalanceSheetData(List<string> dList)
+            /// <summary>
+            /// Processes the above gotten data.
+            /// </summary>
+            /// <param name="dList"></param>
+            /// <returns>List of  Classes for each stock in StockList.SList</returns>
+            /// <exception cref="InvalidOperationException"></exception>
+            public static List<Earnings> ProcessEarningsData(List<string> dList)
             {
                 List<Earnings> parsedData = new();
                 foreach (string response in dList)

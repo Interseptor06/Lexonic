@@ -25,34 +25,12 @@ namespace FinancialsDPM
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                if (isInit == false)
-                {
-                    FinancialsTableOps.CreateTables();
-                    isInit = true;
-                }
-                FinancialsUpdateTables.UpdateEarningsTable(
-                    GetEarningsData.ProcessBalanceSheetData(
-                        await GetEarningsData.EarningsRequest(_logger, stoppingToken, true))[0]);
+
+                //FinancialsTableOps.CreateTables();
+
                 
-                FinancialsUpdateTables.UpdateCashFlowTable(
-                    GetCashFlowData.ProcessCashFlowData(
-                        await GetCashFlowData.CashFlowDataRequest(_logger, stoppingToken, true))[0]);
-                
-                FinancialsUpdateTables.UpdateBalanceSheetTable(
-                    GetBalanceSheetData.ProcessBalanceSheetData(
-                        await GetBalanceSheetData.BalanceSheetRequest(_logger, stoppingToken, true))[0]);
-                
-                FinancialsUpdateTables.UpdateIncomeStatementTable(
-                    GetIncomeStatementData.ProcessIncomeStatementsData(
-                        await GetIncomeStatementData.IncomeStatementRequest(_logger, stoppingToken, true))[0]);
-                
-                FinancialsUpdateTables.UpdateCompanyOverviewTableTable(
-                    GetCompanyOverviewData.ProcessCompanyOverviewData(
-                        await GetCompanyOverviewData.CompanyOverviewRequest(_logger, stoppingToken, true))[0]);
-                
-                //Console.WriteLine("ALO");
-                // 24 hour minutes delay
-                await Task.Delay(1000*60*60*24, stoppingToken);
+                Console.WriteLine("ALO");
+                await Task.Delay(100000, stoppingToken);
             }
         }
     }

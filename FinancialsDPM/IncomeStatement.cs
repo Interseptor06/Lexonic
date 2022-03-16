@@ -1,8 +1,6 @@
-namespace FinancialsDPM
-{
-    using System;
+using System;
 using System.Collections.Generic;
-    using System.Net.Http;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading;
@@ -11,7 +9,14 @@ using Microsoft.Extensions.Logging;
 
 namespace FinancialsDPM
 {
-    // Initial Implementation Done
+
+
+namespace FinancialsDPM
+{
+    /// <summary>
+    /// Constructor is mainly for Null Exception Safety.
+    /// Class is for data encapsulation.
+    /// </summary>
     public class IncomeStatement
     {
         public string Ticker;
@@ -98,7 +103,13 @@ namespace FinancialsDPM
     public class GetIncomeStatementData
     {
         private static string api_key = "47BGPYJPFN4CEC20";
-
+        /// <summary>
+        /// Requests data for each ticker in StockList.SList
+        /// </summary>
+        /// <param name="ilogger"></param>
+        /// <param name="stoppingToken"></param>
+        /// <param name="toBreak"></param>
+        /// <returns> List of API responses </returns>
         public static async Task<List<string>> IncomeStatementRequest(ILogger ilogger, CancellationToken stoppingToken, bool toBreak=false)
         {
             List<string> IncomeStatements = new();
@@ -128,7 +139,12 @@ namespace FinancialsDPM
 
             return IncomeStatements;
         }
-
+        /// <summary>
+        /// Processes the above gotten data.
+        /// </summary>
+        /// <param name="dList"></param>
+        /// <returns>List of IncomeStatement Classes for each stock in StockList.SList</returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public static List<IncomeStatement> ProcessIncomeStatementsData(List<string> dList)
         {
             List<IncomeStatement> parsedData = new();

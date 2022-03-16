@@ -8,12 +8,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using NumSharp;
-using Tweetinvi.Core.Extensions;
+
 
 namespace NewsTwitterDPM
 {
     public class NewsData
     {
+        /// <summary>
+        /// Class is for data encapsulation
+        /// Constructors are for ease of use and null exception safety when possible, although we do provide a default constructor
+        /// </summary>
         public string Ticker { get; set; }
         public string Title { get; set; }
         public string Article_url { get; set; }
@@ -21,7 +25,10 @@ namespace NewsTwitterDPM
         public string Time { get; set; }
         public double Sentiment { get; set; }
         //Default constructor
-        public NewsData(){}
+        public NewsData()
+        {
+            //Default
+        }
         public NewsData(string ticker, string title, string articleUrl, string date, string time)
         {
             Ticker = ticker ?? throw new ArgumentNullException(nameof(ticker));
@@ -42,6 +49,11 @@ namespace NewsTwitterDPM
     }
     public class ParseOnlyNewsData
     {
+        /// <summary>
+        /// Since the API returns a list of Tickers for each article this is a temporary class used ONLY during data
+        /// processing and not anywhere else.
+        /// The only difference is that instead of a Ticker we have a TickerList which is an array
+        /// </summary>
         public string[] TickerList { get; set; }
         public string Title { get; set; }
         public string Article_url { get; set; }
@@ -62,7 +74,11 @@ namespace NewsTwitterDPM
     // The model only takes in the latest 14 days
     public static class HistoricalNewsData
     {
-        //public static string? RequestError;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_dateOnly"></param>
+        /// <returns> A string, which is a date, formatted for the API</returns>
         public static string FormatDate(DateOnly _dateOnly)
         {
             string dateString = String.Empty;
@@ -93,13 +109,11 @@ namespace NewsTwitterDPM
         }
 
         /// <summary>
-        /// Lot of problems here
-        /// For starters the code is copied from the stock data requesting methods
-        /// Second at the moment considering the way that things are written we can't understand for which Ticker 
+        /// File based approach, take news data foreach date in StockDPM/PolygonData and get articles
         /// </summary>
         /// <param name="stoppingToken"></param>
         /// <param name="logger"></param>
-        /// <returns></returns>
+        /// <returns> Dictionary{Date, responseBody} </returns>
         ///
         public static async Task<Dictionary<string, string>> FirstNewsDataRequest(CancellationToken stoppingToken,
             ILogger logger)
@@ -159,7 +173,14 @@ namespace NewsTwitterDPM
             }
             return historicalData;
         }
-        
+        /// <summary>
+        /// Method will be used when we get full access to API but instead of getting historical data, it just
+        /// makes a request foreach stock every day, once a day.
+        /// </summary>
+        /// <param name="stoppingToken"></param>
+        /// <param name="logger"></param>
+        /// <param name="nPast"> For when the market hasn't closed and you don't want to waste requests</param>
+        /// <returns>Same data as method above, for ease of parsing later on -> Dictionary{date, responseBody}</returns>
         public static async Task<Dictionary<string, string>> UpdateNewsData(CancellationToken stoppingToken,
             ILogger logger = null, int nPast = 0)
         {
@@ -216,7 +237,14 @@ namespace NewsTwitterDPM
             // size one, which is not a problem so who gives a fuck.
             return historicalData;
         }
-
+        /// <summary>
+        /// Processes above data to a List of NewsData
+        /// </summary>
+        /// <param name="responseBody"></param>
+        /// <param name="logger"></param>
+        /// <returns>List of NewsData</returns>
+        /// <exception cref="NullReferenceException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public static List<NewsData> ParseNewsRequest(Dictionary<string, string> responseBody, ILogger logger)
         {
             List<NewsData> endResult = new();
@@ -264,7 +292,11 @@ namespace NewsTwitterDPM
 
             return endResult;
         }
-
+        
+        /// <summary>
+        /// Utility method for new file-based approach
+        /// </summary>
+        /// <param name="response"></param>
         public static async Task WriteToFile(Dictionary<string, string> response)
         {
             foreach (KeyValuePair<string, string> Date in response)
@@ -275,7 +307,9 @@ namespace NewsTwitterDPM
                 await File.WriteAllTextAsync(path, Date.Value);
             }
         }
-
+        /// <summary>
+        /// Utility method for new file-based approach
+        /// </summary>
         public static Dictionary<string, string> ReadFiles()
         {
             Dictionary<string, string> endResult = new();
@@ -288,7 +322,9 @@ namespace NewsTwitterDPM
             }
             return endResult;
         }
-
+        /// <summary>
+        /// Utility method to Initialize Data
+        /// </summary>
         public static List<NewsData> Init()
         {
             var allData = HistoricalNewsData.ReadFiles();
