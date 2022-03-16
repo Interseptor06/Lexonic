@@ -301,7 +301,7 @@ namespace NewsTwitterDPM
         {
             foreach (KeyValuePair<string, string> Date in response)
             {
-                string path = Path.Combine(Environment.CurrentDirectory, @"PolygonData", $"snd_{Date.Key}.json");
+                string path = Path.Combine(Environment.CurrentDirectory, @"PolygonNewsData", $"snd_{Date.Key}.json");
                 await using FileStream fs = File.Create(path);
                 fs.Close();
                 await File.WriteAllTextAsync(path, Date.Value);
@@ -313,7 +313,7 @@ namespace NewsTwitterDPM
         public static Dictionary<string, string> ReadFiles()
         {
             Dictionary<string, string> endResult = new();
-            string path = Path.Combine(Environment.CurrentDirectory, @"PolygonData");
+            string path = Path.Combine(Environment.CurrentDirectory, @"PolygonNewsData");
             string[] files = Directory.GetFiles(path);
             foreach (string filename in files)
             {
@@ -331,8 +331,7 @@ namespace NewsTwitterDPM
             Console.WriteLine(allData.Keys.Count);
             var ParsedData = HistoricalNewsData.ParseNewsRequest(allData, null);
             var y = ParsedData.Select(data => data.Title).ToList();
-            var xNdArray =
-                np.load("/home/martin/RiderProjects/Lexonic/NewsTwitterDPM/SentimentNPYs/CurrentNewsSentiment.npy");
+            var xNdArray = np.load(Path.Combine(Environment.CurrentDirectory,@"SentimentNPYs", @"CurrentNewsSentiment.npy"));
 
             for (int i = 0; i < (xNdArray.Shape[0] & ParsedData.Count); i++)
             {

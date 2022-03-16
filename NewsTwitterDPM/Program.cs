@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Hosting;
+/*using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using NewsTwitterDPM;
 
@@ -7,4 +7,6 @@ IHost host = Host.CreateDefaultBuilder(args)
     .Build();
 
 await host.RunAsync();
-
+*/
+using NewsTwitterDPM;
+HistoricalNewsData.Init();

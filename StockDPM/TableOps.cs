@@ -73,7 +73,7 @@ namespace StockDPM
         public static void InsertPredictionDataTable(string _ticker, DateTime _date, float _prediction)
         {
             string script =
-                File.ReadAllText(@"/home/martin/RiderProjects/Lexonic/StockDPM/SqlQueries/InsertPrediction.sql");
+                File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"SqlQueries", @"InsertPrediction.sql"));
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";

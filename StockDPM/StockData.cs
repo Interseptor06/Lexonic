@@ -225,7 +225,7 @@ namespace StockDPM
         public static Dictionary<DateOnly, string> ReadFiles()
         {
             Dictionary<DateOnly, string> endResult = new();
-            string path = Path.Combine(Environment.CurrentDirectory, @"PolygonData");
+            string path = Path.Combine(Environment.CurrentDirectory, @"PolygonStockData");
             string[] files = Directory.GetFiles(path);
             foreach (string filename in files)
             {
@@ -364,8 +364,9 @@ namespace StockDPM
         public static void InitPredictionData()
         {
             StockTableOps.CreatePredictionDataTable();
-            var x = np.load("/home/martin/RiderProjects/Lexonic/StockDPM/NPYs/EndAll.npy");
-            var Date = DateTime.Parse(Directory.GetFiles("/home/martin/RiderProjects/Lexonic/StockDPM/PolygonData").OrderByDescending(x => x)
+            string path = Path.Combine(Environment.CurrentDirectory, @"NPYs", @"EndAll.npy");
+            var x = np.load(path);
+            var Date = DateTime.Parse(Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, @"PolygonStockData")).OrderByDescending(x => x)
                 .ToList()[0].Split("_")[1].Split(".")[0]);
             Console.WriteLine(Date);
             for (int i = 0; i < 500; i++)
