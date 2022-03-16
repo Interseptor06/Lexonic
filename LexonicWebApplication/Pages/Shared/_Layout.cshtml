@@ -1,30 +1,28 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
+<head>    
+    <meta http-equiv=“X-UA-Compatible” content=“IE=8” />
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - LexonicWebApplication</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/LexonicWebApplication.styles.css" asp-append-version="true"/>
 </head>
-<body>
+<body style="background-color: #2d3436">
+
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" asp-area="" asp-page="/Index">LexonicWebApplication</a>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3" style="box-shadow: 0 16px 32px -2px rgba(0,0,0,0.25);">
+        <div class="container" style="height: 70px;">
+            <a class="navbar-brand" asp-area="" asp-page="/Index" style="font-size: 35px; margin: 5px">Lexonic</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -36,16 +34,18 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
+
+<!--
+<footer class="footer text-muted" style="background-color: #212529;-moz-box-shadow: 0px -4px 5px 0px rgba(0,0,0,0.75);box-shadow: 0px -8px 10px 0px rgba(0,0,0,0.25);">
     <div class="container">
-        &copy; 2022 - LexonicWebApplication - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        2022 Lexonic<a asp-area="" asp-page="/Privacy"></a>
     </div>
 </footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
-
+-->
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

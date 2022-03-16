@@ -1,8 +1,663 @@
 @page
 @model PrivacyModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Lexonic Analysis";
 }
+
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<head>
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+              google.charts.load('current', {'packages':['corechart']});
+              google.charts.setOnLoadCallback(drawChart);
+            
+              
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['@Model.stockData[0].Date', @Model.stockData[0].Low, @Model.stockData[0].Open, @Model.stockData[0].Close, @Model.stockData[0].High],
+              ['@Model.stockData[1].Date', @Model.stockData[1].Low, @Model.stockData[1].Open, @Model.stockData[1].Close, @Model.stockData[1].High],
+              ['@Model.stockData[2].Date', @Model.stockData[2].Low, @Model.stockData[2].Open, @Model.stockData[2].Close, @Model.stockData[2].High],
+              ['@Model.stockData[3].Date', @Model.stockData[3].Low, @Model.stockData[3].Open, @Model.stockData[3].Close, @Model.stockData[3].High],
+              ['@Model.stockData[4].Date', @Model.stockData[4].Low, @Model.stockData[4].Open, @Model.stockData[4].Close, @Model.stockData[4].High],
+              ['@Model.stockData[5].Date', @Model.stockData[5].Low, @Model.stockData[5].Open, @Model.stockData[5].Close, @Model.stockData[5].High],
+              ['@Model.stockData[6].Date', @Model.stockData[6].Low, @Model.stockData[6].Open, @Model.stockData[6].Close, @Model.stockData[6].High],
+              ['@Model.stockData[7].Date', @Model.stockData[7].Low, @Model.stockData[7].Open, @Model.stockData[7].Close, @Model.stockData[7].High],
+              ['@Model.stockData[8].Date', @Model.stockData[8].Low, @Model.stockData[8].Open, @Model.stockData[8].Close, @Model.stockData[8].High],
+              ['@Model.stockData[9].Date', @Model.stockData[9].Low, @Model.stockData[9].Open, @Model.stockData[9].Close, @Model.stockData[9].High],
+              ['@Model.stockData[10].Date', @Model.stockData[10].Low, @Model.stockData[10].Open, @Model.stockData[10].Close, @Model.stockData[10].High],
+              ['@Model.stockData[11].Date', @Model.stockData[11].Low, @Model.stockData[11].Open, @Model.stockData[11].Close, @Model.stockData[11].High],
+              ['@Model.stockData[12].Date', @Model.stockData[12].Low, @Model.stockData[12].Open, @Model.stockData[12].Close, @Model.stockData[12].High],
+              ['@Model.stockData[13].Date',  @Model.stockData[13].Low, @Model.stockData[13].Open, @Model.stockData[13].Close, @Model.stockData[13].High]
+              // Treat first row as data as well.
+            ], true);
+            
+            var options = {
+              legend:'none',
+              backgroundColor: "#2d3436",
+              candlestick:{
+                  risingColor: {stroke: '#419c8b', fill: '#57e1c0'},
+                  fallingColor: {stroke: '#d05991', fill: '#fc4291'}
+              },
+              hAxis:{
+                  textStyle:{
+                      color: "white",
+                  },      
+                  titleTextStyle:{                  
+                      color: "white"                
+                  }
+              },
+              colors: ["white"],
+              vAxis: {
+                  textStyle:{
+                                    color: "white",
+                                },      
+                                titleTextStyle:{                  
+                                    color: "white"                
+                                }
+              }
+            };
+        
+            var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+        
+            chart.draw(data, options);
+          }
+            </script>
+</head>
+
+<style>
+    body{
+    background: #00232E;
+    color: white;
+    }
+    
+    *{
+        box-sizing: border-box;
+    }
+    
+    .marquee{
+        box-shadow: 0 16px 32px -2px rgba(0,0,0,0.25);
+        background-color: black;
+        /*margin-left: -30vw;*/
+        position: absolute;
+        left: 0px;
+        margin-top: 5px;
+        padding: 0;
+        overflow: hidden;
+        width: 100vw;
+        height: 2em;
+        line-height: 2em;
+    }
+    .marquee span{
+        position: relative;
+        padding: 0 0 0 0;
+        overflow: visible;
+        white-space: nowrap;
+        font-size: 20px;
+        height: 2em;
+        line-height: 2em;
+    }
+    .marquee span::before{
+        position: absolute;
+        left: 5px;
+        top: 20px;
+        width: 100px;
+        height: 20px;
+        font-size: 5px;
+        line-height: 5px;
+        display: block;
+        text-align: right;
+        text-transform: uppercase;
+        white-space: normal;
+    }
+    
+    .marquee.patrick span::before{
+        content: '';
+    }
+    
+    .chartAndFirst{
+        display: flex;
+        background-color: #212529;
+        padding: 10px;
+        margin-left: -250px;
+        margin-right: -260px;;
+    }
+    
+    .lowerDiv{
+        display: flex;
+        background-color: #212529;
+        padding: 10px;
+        margin-left: -250px;
+        margin-right: -260px;;
+        background-color: #212529;
+        padding: 10px;
+        }
+       
+    .lowerDiv :first-child {
+            width: 80%;
+          }
+    
+    .flex-child {
+        flex: 1;
+        
+    }  
+    
+    .flex-child:first-child {
+        margin-right: 20px;
+    } 
+</style>
+<body>
+
+<div class="marquee patrick">
+
+    <span>
+        $GOOGL -3.4 | $TSLA +0.1 | $AAPL +0.1 | $SBUX +6.2 | DOW J -103 | S&P 500 -1069 |
+    </span>
+    <span>
+        $GOOGL -3.4 | $TSLA +0.1 | $AAPL +0.1 | $SBUX +6.2 | DOW J -103 | S&P 500 -1069 |
+    </span>
+    <span>
+        $GOOGL -3.4 | $TSLA +0.1 | $AAPL +0.1 | $SBUX +6.2 | DOW J -103 | S&P 500 -1069 |
+    </span>
+    <span>
+        $GOOGL -3.4 | $TSLA +0.1 | $AAPL +0.1 | $SBUX +6.2 | DOW J -103 | S&P 500 -1069 |
+    </span>
+
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
+
+<script>
+        $('.marquee').marquee({
+	//duration in milliseconds of the marquee
+	duration: 25000,
+	//gap in pixels between the tickers
+	gap:0,
+	//time in milliseconds before the marquee will start animating
+	delayBeforeStart: 0,
+	//'left' or 'right'
+	direction: 'left',
+	//true or false - should the marquee be duplicated to show an effect of continues flow
+	duplicated: true,
+    startVisible:true,
+    pauseOnHover:true
+});
+    </script>
+
+<div style="text-align: center;">
+    <p style="margin-top: 40px; font-size: 30px; margin-bottom: 20px;position: relative; color:#419C8BFF">@Model.ValueToPass</p>
+</div>
+
+
+
+
+<hr style="width: 100vw; margin-left: 5px; background-color: #576574; height: 8px">
+
+
+
+
+<div style="background-color: #2d3436">
+    <div class="chartAndFirst">
+        <div class="flex-child">
+            <div id="chart_div" style="width: 1200px; height: 500px;"></div>
+        </div>
+        <div class="flex-child">
+            <h2>Our Prediction</h2>
+            <h4 style="color: #57e1c0; margin-bottom: 2em"> @Model.Prediction</h4>
+            <h2>Analysts' Prediction</h2>
+            <h4 style="color: #57e1c0; margin-bottom: 2em">@Model.overview.AnalystTargetPrice</h4>
+            <h2>News Sentiment</h2>
+            <h4 style="color: #8395a7; margin-bottom: 2em">@Model.Sentiment</h4>
+            <h2>Twitter Sentiment</h2>
+            <h4 style="color: #57e1c0; margin-bottom: 2em">N/A</h4>
+        </div>
+    </div>
+
+    <div align="left" id="" class="lowerDiv" style="margin-top: 15px; padding:  1em; color:#c8d6e5; background-color:#212529">
+        <div class="flex-child" style="background-color:#212529; padding: 1.5em">
+            <div>
+                <h4 style="color: #8395a7">Desciription</h4>
+                <p style="align-items: center; margin: 1.5em">@Model.overview.Description</p>
+            </div>
+            <div>
+                <h4 style="color: #8395a7; margin-top: 2em">Sector</h4>
+                <p style="align-items: center; margin: 1.5em">@Model.overview.Sector</p>
+            </div>
+            <div>
+                <h4 style="color: #8395a7; margin-top: 2em">Industry</h4>
+                <p style="align-items: center; margin: 1.5em">@Model.overview.Industry</p>
+            </div>
+
+            <div>
+                <h4 style="color: #8395a7; margin-top: 2em">Overview</h4>
+                <p style="align-items: center; margin: 1.5em">Divident yield : @Model.overview.DividendYield</p>
+                <p style="align-items: center; margin: 1.5em">Market cap. : @Model.overview.MarketCapitalization</p>
+                <p style="align-items: center; margin: 1.5em">52wk. high : @Model.overview.FiftyTwoWeekHigh</p>
+                <p style="align-items: center; margin: 1.5em">52wk. low : @Model.overview.FiftyTwoWeekLow</p>
+                <p style="align-items: center; margin: 1.5em">PE ratio : @Model.overview.PERatio</p>
+            </div>
+            <div>
+                <h4 style="color: #8395a7; margin-top: 2em">Earnings</h4>
+                <p style="align-items: center; margin: 1.5em">Reported EBITDA : @Model.overview.EBITDA</p>
+            </div>
+
+        </div>
+        <div class="flex-child" style="background-color:#212529;">
+            <div style="background-color: #2d3436; padding:2em; width: 100%">
+                <h2 align="center" style="margin: 1em; color: #8395a7">News</h2>
+                <p align="left"><a href=@Model.NewsDatas[0].Article_url>@Model.NewsDatas[0].Title</a></p>
+                <p style="margin-top: 30px"><a href=@Model.NewsDatas[1].Article_url>@Model.NewsDatas[1].Title</a></p>
+                <p style="margin-top: 30px"><a href=@Model.NewsDatas[2].Article_url>@Model.NewsDatas[2].Title</a></p>
+            </div>
+            <div>
+                <h4 style="color: #8395a7; margin-top: 2em">Cash Flow</h4>
+                <p style="align-items: center; margin: 1.5em">Market Cap : @Model.overview.MarketCapitalization</p>
+                <p style="align-items: center; margin: 1.5em">Profit Margin : @Model.overview.ProfitMargin</p>
+                <p style="align-items: center; margin: 1.5em">EV to EBITDA : @Model.overview.EVToEBITDA</p>
+                <p style="align-items: center; margin: 1.5em">Revenue Per Share : @Model.overview.RevenuePerShareTTM</p>
+            </div>
+            <div>
+                <h4 style="color: #8395a7; margin-top: 2em">Income Statement</h4>
+                <p style="align-items: center; margin: 1.5em">Diluted EPS : @Model.overview.DilutedEPSTTM</p>
+                <p style="align-items: center; margin: 1.5em">Return On Equity : @Model.overview.ReturnOnEquityTTM</p>
+                <p style="align-items: center; margin: 1.5em">Revenue Per Share : @Model.overview.RevenuePerShareTTM</p>
+                <p style="align-items: center; margin: 1.5em">Price To Sales : @Model.overview.PriceToSalesRatioTTM</p>
+                <p style="align-items: center; margin: 1.5em">Dividend Yield : @Model.overview.DividendYield</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--
+<table>
+    <tr>
+        <th>Model.NewsDatas[0].Title</th>
+        <th>Model.NewsDatas[1].Title</th>
+        <th>Model.NewsDatas[2].Title</th>
+        <th>Model.NewsDatas[3].Title</th>
+        <th>Model.NewsDatas[4].Title</th>
+    </tr>
+    <tr>
+        <th>
+            <a href=Model.NewsDatas[0].Article_url>Model.NewsDatas[0].Article_url</a>
+        </th>
+        <th>
+            <a href=Model.NewsDatas[1].Article_url>Model.NewsDatas[1].Article_url</a>
+        </th>
+        <th>
+            <a href=Model.NewsDatas[2].Article_url>Model.NewsDatas[2].Article_url</a>
+        </th>
+        <th>
+            <a href=Model.NewsDatas[3].Article_url>Model.NewsDatas[3].Article_url</a>
+        </th>
+        <th>
+            <a href=Model.NewsDatas[4].Article_url>Model.NewsDatas[4].Article_url</a>
+        </th>
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        <th>Ticker</th>
+        <td>Model.companyOverview.Ticker</td>
+    </tr>
+    <th>AssetType</th><h1>@ViewData["Title"]</h1>
+
+    <td>Model.companyOverview.AssetType</td>
+    <tr>
+        <th>Name</th>
+        <td>Model.companyOverview.Name</td>
+    </tr>
+    <th>Description</th>
+    <td>Model.companyOverview.Description</td>
+    <tr>
+
+        <th>CIK</th>
+        <td>Model.companyOverview.CIK</td>
+    </tr>
+    <tr>
+
+        <th>Exchange</th>
+        <td>Model.companyOverview.Exchange</td>
+    </tr>
+    <tr>
+
+        <th>Currency</th>
+        <td>Model.companyOverview.Currency</td>
+    </tr>
+    <tr>
+
+        <th>Country</th>
+        <td>Model.companyOverview.Industry</td>
+    </tr>
+    <tr>
+
+        <th>Industry</th>
+        <td>Model.companyOverview.Address</td>
+    </tr>
+    <tr>
+
+        <th>Address</th>
+        <td>Model.companyOverview.Country</td>
+    </tr>
+    <tr>
+
+        <th>EVToRevenue</th>
+        <td>Model.companyOverview.EVToRevenue</td>
+    </tr>
+    <tr>
+
+        <th>EVToEBITDA</th>
+        <td>Model.companyOverview.EVToEBITDA</td>
+    </tr>
+    <tr>
+
+        <th>AnalystTargetPrice</th>
+        <td>Model.companyOverview.AnalystTargetPrice</td>
+    </tr>
+    <tr>
+
+        <th>OurTargetPrice</th>
+        <td>Model.OurPrice</td>
+    </tr>
+    <tr>
+
+        <th>FiftyTwoWeekHigh</th>
+        <td>Model.companyOverview.FiftyTwoWeekHigh</td>
+    </tr>
+    <tr>
+
+        <th>FiftyTwoWeekLow</th>
+        <td>Model.companyOverview.FiftyTwoWeekLow</td>
+    </tr>
+    <tr>
+
+        <th>FiftyDayMovingAverage</th>
+        <td>Model.companyOverview.FiftyDayMovingAverage</td>
+    </tr>
+    <tr>
+
+
+        <th>TwoHundredDayMovingAverage</th>
+        <td>Model.companyOverview.TwoHundredDayMovingAverage</td>
+    </tr>
+</table>
+
+<div id="wrapper">
+<div id="first">
+
+    <h1>Detailed Balance Sheet Financials</h1>
+    <table>
+        <tr>
+            <th>Ticker</th>
+            <td>Model.balanceSheet.Ticker</td>
+        </tr>
+        <th>fiscalDateEnding</th>
+        <td>Model.balanceSheet.fiscalDateEnding</td>
+        <tr>
+            <th>reportedCurrency</th>
+            <td>Model.balanceSheet.reportedCurrency</td>
+        </tr>
+        <th>totalAssets</th>
+        <td>Model.balanceSheet.totalAssets</td>
+        <tr>
+            <th>totalCurrentAssets</th>
+            <td>Model.balanceSheet.totalCurrentAssets</td>-
+        </tr>
+        <tr>
+            <th>cashAndCashEquivalentsAtCarryingValue</th>
+            <td>Model.balanceSheet.cashAndCashEquivalentsAtCarryingValue</td>
+        </tr>
+        <tr>
+            <th>cashAndShortTermInvestments</th>
+            <td>Model.balanceSheet.cashAndShortTermInvestments</td>
+        </tr>
+        <tr>
+            <th>inventory</th>
+            <td>Model.balanceSheet.inventory</td>
+        </tr>
+        <tr>
+            <th>currentNetReceivables</th>
+            <td>Model.balanceSheet.currentNetReceivables</td>
+        </tr>
+        <tr>
+            <th>totalNonCurrentAssets</th>
+            <td>Model.balanceSheet.otherNonCurrrentAssets</td>
+        </tr>
+        <tr>
+            <th>propertyPlantEquipment</th>
+            <td>Model.balanceSheet.propertyPlantEquipment</td>
+        </tr>
+        <tr>
+            <th>accumulatedDepreciationAmortizationPPE</th>
+            <td>Model.balanceSheet.accumulatedDepreciationAmortizationPPE</td>
+        </tr>
+        <tr>
+            <th>intangibleAssets</th>
+            <td>Model.balanceSheet.intangibleAssets</td>
+        </tr>
+        <tr>
+            <th>intangibleAssetsExcludingGoodwill</th>
+            <td>Model.balanceSheet.intangibleAssetsExcludingGoodwill</td>
+        </tr>
+        <tr>
+            <th>goodwill</th>
+            <td>Model.balanceSheet.goodwill</td>
+        </tr>
+        <tr>
+            <th>investments</th>
+            <td>Model.balanceSheet.investments</td>
+        </tr>
+        <tr>
+            <th>longTermInvestments</th>
+            <td>Model.balanceSheet.longTermInvestments</td>
+        </tr>
+        <tr>
+            <th>shortTermInvestments</th>
+            <td>Model.balanceSheet.shortTermInvestments</td>
+        </tr>
+        <tr>
+            <th>otherCurrentAssets</th>
+            <td>Model.balanceSheet.otherCurrentAssets</td>
+        </tr>
+        <tr>
+            <th>otherNonCurrrentAssets</th>
+            <td>Model.balanceSheet.otherNonCurrrentAssets</td>
+        </tr>
+        <tr>
+            <th>totalLiabilities</th>
+            <td>Model.balanceSheet.totalLiabilities</td>
+        </tr>
+        <tr>
+            <th>totalCurrentLiabilities</th>
+            <td>Model.balanceSheet.totalCurrentLiabilities</td>
+        </tr>
+        <tr>
+            <th>currentAccountsPayable</th>
+            <td>Model.balanceSheet.currentAccountsPayable</td>
+        </tr>
+        <tr>
+            <th>deferredRevenue</th>
+            <td>Model.balanceSheet.deferredRevenue</td>
+        </tr>
+        <tr>
+            <th>currentDebt</th>
+            <td>Model.balanceSheet.currentDebt</td>
+        </tr>
+        <tr>
+            <th>shortTermDebt</th>
+            <td>Model.balanceSheet.shortTermDebt</td>
+        </tr>
+        <tr>
+            <th>totalNonCurrentLiabilities</th>
+            <td>Model.balanceSheet.totalNonCurrentLiabilities</td>
+        </tr>
+        <tr>
+            <th>capitalLeaseObligations</th>
+            <td>Model.balanceSheet.capitalLeaseObligations</td>
+        </tr>
+        <tr>
+            <th>longTermDebt</th>
+            <td>Model.balanceSheet.longTermDebt</td>
+        </tr>
+        <tr>
+            <th>currentLongTermDebt</th>
+            <td>Model.balanceSheet.currentLongTermDebt</td>
+        </tr>
+        <tr>
+            <th>longTermDebtNoncurrent</th>
+            <td>Model.balanceSheet.longTermDebtNoncurrent</td>
+        </tr>
+        <tr>
+            <th>shortLongTermDebtTotal</th>
+            <td>Model.balanceSheet.shortLongTermDebtTotal</td>
+        </tr>
+        <tr>
+            <th>otherCurrentLiabilities</th>
+            <td>Model.balanceSheet.otherCurrentLiabilities</td>
+        </tr>
+        <tr>
+            <th>otherNonCurrentLiabilities</th>
+            <td>Model.balanceSheet.otherNonCurrentLiabilities</td>
+        </tr>
+        <tr>
+            <th>totalShareholderEquity</th>
+            <td>Model.balanceSheet.totalShareholderEquity</td>
+        </tr>
+        <tr>
+            <th>treasuryStock</th>
+            <td>Model.balanceSheet.treasuryStock</td>
+        </tr>
+        <tr>
+            <th>retainedEarnings</th>
+            <td>Model.balanceSheet.retainedEarnings</td>
+        </tr>
+        <tr>
+            <th>commonStock</th>
+            <td>Model.balanceSheet.commonStock</td>
+        </tr>
+        <tr>
+            <th>commonStockSharesOutstanding</th>
+            <td>Model.balanceSheet.commonStockSharesOutstanding</td>
+        </tr>
+    </table>
+</div>
+
+
+<div id="second">
+    <h1>Detailed CashFlow Financials</h1>
+    <table>
+        <tr>
+            <th>Ticker</th>
+            <td>Model.cashFlow.Ticker</td>
+        </tr>
+        <th>fiscalDateEnding</th>
+        <td>Model.cashFlow.fiscalDateEnding</td>
+        <tr>
+            <th>reportedCurrency</th>
+            <td>Model.cashFlow.reportedCurrency</td>
+        </tr>
+        <tr>
+            <th>operatingCashflow</th>
+            <td>Model.cashFlow.operatingCashflow</td>
+        </tr>
+        <th>paymentsForOperatingActivities</th>
+        <td>Model.cashFlow.paymentsForOperatingActivities</td>
+        <tr>
+            <th>proceedsFromOperatingActivities</th>
+            <td>Model.cashFlow.proceedsFromOperatingActivities</td>
+        </tr>
+        <tr>
+            <th>changeInOperatingLiabilities</th>
+            <td>Model.cashFlow.changeInOperatingLiabilities</td>
+        </tr>
+        <th>changeInOperatingAssets</th>
+        <td>Model.cashFlow.changeInOperatingAssets</td>
+        <tr>
+            <th>depreciationDepletionAndAmortization</th>
+            <td>Model.cashFlow.depreciationDepletionAndAmortization</td>
+        </tr>
+        <tr>
+            <th>capitalExpenditures</th>
+            <td>Model.cashFlow.capitalExpenditures</td>
+        </tr>
+        <th>changeInReceivables</th>
+        <td>Model.cashFlow.changeInReceivables</td>
+        <tr>
+            <th>changeInInventory</th>
+            <td>Model.cashFlow.changeInInventory</td>
+        </tr>
+        <tr>
+            <th>profitLoss</th>
+            <td>Model.cashFlow.profitLoss</td>
+        </tr>
+        <th>cashflowFromInvestment</th>
+        <td>Model.cashFlow.cashflowFromInvestment</td>
+        <tr>
+            <th>cashflowFromFinancing</th>
+            <td>Model.cashFlow.cashflowFromFinancing</td>
+        </tr>
+        <tr>
+            <th>proceedsFromRepaymentsOfShortTermDebt</th>
+            <td>Model.cashFlow.proceedsFromRepaymentsOfShortTermDebt</td>
+        </tr>
+        <th>paymentsForRepurchaseOfCommonStock</th>
+        <td>Model.cashFlow.paymentsForRepurchaseOfCommonStock</td>
+        <tr>
+            <th>paymentsForRepurchaseOfEquity</th>
+            <td>Model.cashFlow.paymentsForRepurchaseOfEquity</td>
+        </tr>
+        <tr>
+            <th>paymentsForRepurchaseOfPreferredStock</th>
+            <td>Model.cashFlow.paymentsForRepurchaseOfPreferredStock</td>
+        </tr>
+        <th>dividendPayout</th>
+        <td>Model.cashFlow.dividendPayout</td>
+        <tr>
+            <th>dividendPayoutCommonStock</th>
+            <td>Model.cashFlow.dividendPayoutCommonStock</td>
+        </tr>
+        <tr>
+            <th>dividendPayoutPreferredStock</th>
+            <td>Model.cashFlow.dividendPayoutPreferredStock</td>
+        </tr>
+        <th>proceedsFromIssuanceOfCommonStock</th>
+        <td>Model.cashFlow.proceedsFromIssuanceOfCommonStock</td>
+        <tr>
+            <th>proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet</th>
+            <td>Model.cashFlow.proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet</td>
+        </tr>
+        <tr>
+            <th>proceedsFromIssuanceOfPreferredStock</th>
+            <td>Model.cashFlow.proceedsFromIssuanceOfPreferredStock</td>
+        </tr>
+        <tr>
+            <th>proceedsFromRepurchaseOfEquity</th>
+            <td>Model.cashFlow.proceedsFromRepurchaseOfEquity</td>
+        </tr>
+        <tr>
+            <th>proceedsFromSaleOfTreasuryStock</th>
+            <td>Model.cashFlow.proceedsFromSaleOfTreasuryStock</td>
+        </tr>
+        <tr>
+            <th>changeInCashAndCashEquivalents</th>
+            <td>Model.cashFlow.changeInCashAndCashEquivalents</td>
+        </tr>
+        <tr>
+            <th>changeInExchangeRate</th>
+            <td>Model.cashFlow.changeInExchangeRate</td>
+        </tr>
+        <tr>
+            <th>netIncome</th>
+            <td>Model.cashFlow.netIncome</td>
+        </tr>
+
+    </table>
+    
+</div>
+</div>
+
+</body>-->

@@ -3,8 +3,38 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<link href="http://fonts.cdnfonts.com/css/walkway" rel="stylesheet">
+<style>
+      button:hover, button:focus {
+      outline: none;
+      }
+      input:focus::placeholder {
+        color: transparent;
+      }
+      ::placeholder{
+        color:  lightgray;
+      }
+      
+      input {
+        border-color: white;
+        border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        border-bottom-style: groove;
+        background-color: #2d3436;
+      }
+      
+      .no-outline:focus {
+        outline: none;
+      }
+    </style>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="indexwrap">
+<div class="text-center" style="margin-bottom: 100px; margin-top: 150px">
+    <h1 class="display-4" style="color: white; font-family: 'Walkway Oblique UltraBold', sans-serif;">All The Information You Need</h1>
+</div>
+
+<form method="post" class="text-center">
+    <input placeholder = "Which stock are you searching for today?" asp-for="TargetStock" style="width: 500px; ">
+</form>
 </div>

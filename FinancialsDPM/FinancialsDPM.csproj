@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>dotnet-FinancialsDPM-2AB99DDA-52B8-4C50-8774-08A8139245E2</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+        <PackageReference Include="Microsoft.ML" Version="1.7.0" />
+        <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.10.0" />
+        <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="1.7.0" />
+        <PackageReference Include="NumSharp" Version="0.30.0" />
+    </ItemGroup>
+</Project>
