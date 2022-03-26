@@ -18,7 +18,7 @@ namespace StockDPM
 
         public static void CreateHistoricStockTable()
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateHistoricalDataTableQuery.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries" ,@"StockSqlQueries", "CreateHistoricalDataTableQuery.sql");
             string script = File.ReadAllText(path);
 
             string connectionString =
@@ -32,7 +32,7 @@ namespace StockDPM
 
         public static void CreatePredictionDataTable()
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreatePredictionTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries",@"StockSqlQueries", "CreatePredictionTable.sql");
             string script = File.ReadAllText(path);
 
             string connectionString =
@@ -46,7 +46,7 @@ namespace StockDPM
 
         public static void InsertHistoricStockTable(string _ticker, string _date, decimal _open, decimal _close, decimal _high, decimal _low, Int64 _volume, Int64 _numoftransacts)
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "InsertHistoricData.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries",@"StockSqlQueries", "InsertHistoricData.sql");
 
             string script = File.ReadAllText(path);
 
@@ -73,7 +73,7 @@ namespace StockDPM
         public static void InsertPredictionDataTable(string _ticker, DateTime _date, float _prediction)
         {
             string script =
-                File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"SqlQueries", @"InsertPrediction.sql"));
+                File.ReadAllText(Path.Combine(Environment.CurrentDirectory, @"SqlQueries" ,@"StockSqlQueries", @"InsertPrediction.sql"));
 
             string connectionString =
                 "Server=localhost;database=testDB;User ID=SA; Password=SM-dab/ftf/SL95!; Encrypt=No;Initial Catalog=TestDB";

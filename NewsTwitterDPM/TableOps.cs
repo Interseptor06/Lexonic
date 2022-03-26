@@ -16,7 +16,7 @@ namespace NewsTwitterDPM
 
         public static void CreateNewsTable()
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateNewsTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries",@"NewsSqlQueries", "CreateNewsTable.sql");
             string script = File.ReadAllText(path);
 
             string connectionString =
@@ -32,7 +32,7 @@ namespace NewsTwitterDPM
         
         public static void InsertIntoNewsTable(NewsData newsData)
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "InsertToNewsTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries" ,@"NewsSqlQueries", "InsertToNewsTable.sql");
             string script = File.ReadAllText(path);
             
             string connectionString =

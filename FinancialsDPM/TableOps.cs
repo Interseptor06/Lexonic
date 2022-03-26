@@ -28,7 +28,7 @@ namespace FinancialsDPM
         /// </summary>
         public static void CreateBalanceSheetTable()
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateBalanceSheetTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"FinancialsSqlQueries", "CreateBalanceSheetTable.sql");
             
             string script = File.ReadAllText(path);
 
@@ -43,7 +43,7 @@ namespace FinancialsDPM
 
         public static void CreateCashFlowTable()
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateCashFlowTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"FinancialsSqlQueries", "CreateCashFlowTable.sql");
             
             string script =
                 File.ReadAllText(path);
@@ -59,7 +59,7 @@ namespace FinancialsDPM
 
         public static void CreateCompanyOverviewTable()
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateCompanyOverviewTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries" ,@"FinancialsSqlQueries", "CreateCompanyOverviewTable.sql");
 
             
             string script =
@@ -76,7 +76,7 @@ namespace FinancialsDPM
 
         public static void CreateEarningsTable()
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateEarningsTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"FinancialsSqlQueries", "CreateEarningsTable.sql");
 
             string script =
                 File.ReadAllText(path);
@@ -92,7 +92,7 @@ namespace FinancialsDPM
 
         public static void CreateIncomeStatementTable()
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "CreateIncomeStatementTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"FinancialsSqlQueries", "CreateIncomeStatementTable.sql");
 
             string script =
                 File.ReadAllText(path);
@@ -116,7 +116,7 @@ namespace FinancialsDPM
         /// </summary>
         public static void UpdateBalanceSheetTable(BalanceSheet bData)
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "UpdateBalanceSheetTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"FinancialsSqlQueries", "UpdateBalanceSheetTable.sql");
 
             string script = File.ReadAllText(path);
 
@@ -171,7 +171,7 @@ namespace FinancialsDPM
 
         public static void UpdateCashFlowTable(CashFlow eData)
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "UpdateCashFlowTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"FinancialsSqlQueries", "UpdateCashFlowTable.sql");
 
             string script =
                 File.ReadAllText(path);
@@ -218,7 +218,7 @@ namespace FinancialsDPM
 
         public static void UpdateCompanyOverviewTableTable(CompanyOverview coData)
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "UpdateCompanyOverviewTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries" ,@"FinancialsSqlQueries", "UpdateCompanyOverviewTable.sql");
 
             string script = File.ReadAllText(path);
 
@@ -280,7 +280,7 @@ namespace FinancialsDPM
 
         public static void UpdateEarningsTable(Earnings eData)
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "UpdateEarningsTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"FinancialsSqlQueries", "UpdateEarningsTable.sql");
 
             string script = File.ReadAllText(path);
 
@@ -299,7 +299,7 @@ namespace FinancialsDPM
 
         public static void UpdateIncomeStatementTable(IncomeStatement isData)
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"SqlQueries", "UpdateIncomeStatementTable.sql");
+            string path = Path.Combine(Environment.CurrentDirectory, @"FinancialsSqlQueries", "UpdateIncomeStatementTable.sql");
 
             string script = File.ReadAllText(path);
 
