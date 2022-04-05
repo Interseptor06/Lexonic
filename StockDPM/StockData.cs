@@ -364,7 +364,7 @@ namespace StockDPM
         public static void InitPredictionData()
         {
             StockTableOps.CreatePredictionDataTable();
-            string path = Path.Combine(Environment.CurrentDirectory, @"PolygonStockData" , @"StockNPYs", @"EndAll.npy");
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data" , @"StockNPYs", @"EndAll.npy");
             var x = np.load(path);
             var Date = DateTime.Parse(Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, @"Data", @"PolygonStockData")).OrderByDescending(x => x)
                 .ToList()[0].Split("_")[1].Split(".")[0]);
